@@ -429,7 +429,7 @@
                 "pingfederate",
                 "host.docker.internal",
                 "sso.${BASE_HOSTNAME}",
-                "dh-001.${BASE_HOSTNAME}"
+                "bank-01.${BASE_HOSTNAME}"
             ]}],
             "resourceType": "/virtualHostNames"
         },
