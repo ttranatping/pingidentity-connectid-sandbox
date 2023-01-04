@@ -1,5 +1,5 @@
 {
-    "metadata": {"pfVersion": "11.0.0.11"},
+    "metadata": {"pfVersion": "11.2.0.8"},
     "operations": [
         {
             "operationType": "SAVE",
@@ -152,7 +152,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://65632d17c336:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://daeacf3fb426:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -257,6 +257,11 @@
         },
         {
             "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/captchaProviders/settings"
+        },
+        {
+            "operationType": "SAVE",
             "items": [{
                 "federationInfo": {
                     "saml2EntityId": "https://sso.${BASE_HOSTNAME}",
@@ -315,14 +320,80 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "subjectDns": [],
+                "clientCertAuthnEnabled": false,
+                "restrictByIssuerCert": false,
+                "issuerCerts": [],
+                "basicAuthnEnabled": false,
+                "restrictBySubjectDn": false,
+                "users": []
+            }],
+            "resourceType": "/serverSettings/wsTrustStsSettings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "datastoreValidationIntervalSecs": 300,
+                "spConnectionTransactionLoggingOverride": "DONT_OVERRIDE",
+                "disableAutomaticConnectionValidation": false,
+                "idpConnectionTransactionLoggingOverride": "DONT_OVERRIDE",
+                "requestHeaderForCorrelationId": ""
+            }],
+            "resourceType": "/serverSettings/generalSettings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{"logCategories": [
+                {
+                    "name": "Core",
+                    "description": "Debug logging for core components.",
+                    "id": "core",
+                    "enabled": false
+                },
+                {
+                    "name": "Policy Tree",
+                    "description": "Policy tree debug logging.",
+                    "id": "policytree",
+                    "enabled": false
+                },
+                {
+                    "name": "Trusted CAs",
+                    "description": "Log PingFederate and JRE trusted CAs when they are loaded.",
+                    "id": "trustedcas",
+                    "enabled": false
+                },
+                {
+                    "name": "XML Signatures",
+                    "description": "Debug logging for XML signature operations.",
+                    "id": "xmlsig",
+                    "enabled": false
+                },
+                {
+                    "name": "HTTP Request Headers",
+                    "description": "Log HTTP request headers. Sensitive information, such as passwords, may be logged when this category is enabled.",
+                    "id": "requestheaders",
+                    "enabled": false
+                },
+                {
+                    "name": "HTTP Request Parameters",
+                    "description": "Log HTTP GET request parameters. Sensitive information, such as passwords, may be logged when this category is enabled.",
+                    "id": "requestparams",
+                    "enabled": false
+                },
+                {
+                    "name": "REST Data Store Requests and Responses",
+                    "description": "Log REST datastore requests and responses. Sensitive information, such as passwords, may be logged when this category is enabled.",
+                    "id": "restdatastore",
+                    "enabled": false
+                }
+            ]}],
+            "resourceType": "/serverSettings/logSettings"
         },
         {
             "operationType": "SAVE",
@@ -357,7 +428,8 @@
                 "sso-admin.${BASE_HOSTNAME}",
                 "pingfederate",
                 "host.docker.internal",
-                "sso.${BASE_HOSTNAME}"
+                "sso.${BASE_HOSTNAME}",
+                "dh-001.${BASE_HOSTNAME}"
             ]}],
             "resourceType": "/virtualHostNames"
         },
@@ -404,6 +476,20 @@
         },
         {
             "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/oauth/accessTokenManagers/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "forceTcp": false,
+                "debugLogOutput": false,
+                "keySetRetentionPeriodMins": 610
+            }],
+            "resourceType": "/kerberos/realms/settings"
+        },
+        {
+            "operationType": "SAVE",
             "items": [{
                 "idpErrorMsg": "errorDetail.idpSsoFailure",
                 "confirmIdpSlo": false
@@ -414,6 +500,54 @@
             "operationType": "SAVE",
             "items": [{"confirmSlo": false}],
             "resourceType": "/sp/defaultUrls"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "persistentGrantContract": {
+                    "coreAttributes": [
+                        {"name": "USER_KEY"},
+                        {"name": "USER_NAME"}
+                    ],
+                    "extendedAttributes": []
+                },
+                "scopeGroups": [],
+                "refreshRollingInterval": 0,
+                "trackUserSessionsForLogout": false,
+                "parStatus": "ENABLED",
+                "defaultScopeDescription": "",
+                "refreshTokenRollingGracePeriod": 0,
+                "authorizationCodeEntropy": 30,
+                "persistentGrantIdleTimeout": 30,
+                "rollRefreshTokenValues": false,
+                "allowedOrigins": [],
+                "allowUnidentifiedClientExtensionGrants": false,
+                "devicePollingInterval": 5,
+                "persistentGrantIdleTimeoutTimeUnit": "DAYS",
+                "userAuthorizationUrl": "",
+                "jwtSecuredAuthorizationResponseModeLifetime": 600,
+                "clientSecretRetentionPeriod": 0,
+                "pendingAuthorizationTimeout": 600,
+                "disallowPlainPKCE": false,
+                "exclusiveScopeGroups": [],
+                "userAuthorizationConsentPageSetting": "INTERNAL",
+                "bypassActivationCodeConfirmation": false,
+                "includeIssuerInAuthorizationResponse": false,
+                "persistentGrantReuseGrantTypes": ["IMPLICIT"],
+                "registeredAuthorizationPath": "",
+                "persistentGrantLifetime": -1,
+                "refreshTokenLength": 42,
+                "allowUnidentifiedClientROCreds": false,
+                "authorizationCodeTimeout": 60,
+                "persistentGrantLifetimeUnit": "DAYS",
+                "activationCodeCheckMode": "AFTER_AUTHENTICATION",
+                "scopes": [],
+                "parReferenceTimeout": 60,
+                "exclusiveScopes": [],
+                "parReferenceLength": 24,
+                "bypassAuthorizationForApprovedGrants": false
+            }],
+            "resourceType": "/oauth/authServerSettings"
         },
         {
             "operationType": "SAVE",
@@ -452,6 +586,15 @@
         },
         {
             "operationType": "SAVE",
+            "items": [{"sessionSettings": {
+                "sessionRevocationLifetime": 490,
+                "trackUserSessionsForLogout": false,
+                "revokeUserSessionOnLogout": false
+            }}],
+            "resourceType": "/oauth/openIdConnect/settings"
+        },
+        {
+            "operationType": "SAVE",
             "items": [{}],
             "resourceType": "/oauth/tokenExchange/processor/settings"
         },
@@ -462,6 +605,11 @@
         },
         {
             "operationType": "SAVE",
+            "items": [{"clientMetadata": []}],
+            "resourceType": "/oauth/clientSettings"
+        },
+        {
+            "operationType": "SAVE",
             "items": [{
                 "apiEnabled": false,
                 "restrictAccessToRedirectlessMode": false,
@@ -469,6 +617,19 @@
                 "enableApiDescriptions": true
             }],
             "resourceType": "/authenticationApi/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "defaultAuthenticationSources": [],
+                "failIfNoSelection": false,
+                "authnSelectionTrees": [],
+                "trackedHttpParameters": [
+                    "data-holder",
+                    "context"
+                ]
+            }],
+            "resourceType": "/authenticationPolicies/default"
         },
         {
             "operationType": "SAVE",

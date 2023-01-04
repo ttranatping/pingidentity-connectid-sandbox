@@ -21,6 +21,11 @@
       "search": "data-holder.local",
       "replace": "${BASE_HOSTNAME}",
       "apply-env-file": false
+    },
+    {
+      "search": "pingapac.com",
+      "replace": "${BASE_HOSTNAME}",
+      "apply-env-file": false
     }
   ],
   "remove-config":[
