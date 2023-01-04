@@ -1,0 +1,482 @@
+{
+    "metadata": {"pfVersion": "11.0.0.11"},
+    "operations": [
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.oauth20.domain.AuthzServerManagerImpl",
+            "items": [
+                {
+                    "stringValue": "false",
+                    "id": "UnidentifiedClientExtGrants",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "false",
+                    "id": "UnidentifiedClientROCreds",
+                    "type": "STRING"
+                }
+            ],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.oauth20.domain.ClientManagerLdapImpl",
+            "items": [
+                {
+                    "stringValue": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                    "id": "PingFederateDSJNDIName",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "ou=clients,o=appintegrations",
+                    "id": "SearchBase",
+                    "type": "STRING"
+                }
+            ],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.oauth20.handlers.process.exchange.execution.SecurityTokenCreator",
+            "items": [{
+                "listValue": [
+                    "org.sourceid.wstrust.processor.oauth.BearerAccessTokenTokenProcessor",
+                    "org.sourceid.wstrust.processor.jwt.JWTTokenProcessor"
+                ],
+                "id": "base64-required-plugins",
+                "type": "LIST"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.oauth20.token.AccessGrantManagerLDAPPingDirectoryImpl",
+            "items": [
+                {
+                    "stringValue": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                    "id": "PingFederateDSJNDIName",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "ou=grants,o=appintegrations",
+                    "id": "SearchBase",
+                    "type": "STRING"
+                }
+            ],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.domain.mgmt.AdminUserManager",
+            "items": [{
+                "stringValue": "true",
+                "id": "isEaRoleUpdated",
+                "type": "STRING"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.domain.mgmt.impl.PartnerCertMigrator",
+            "items": [{
+                "stringValue": "true",
+                "id": "partner.cert.migration.complete",
+                "type": "STRING"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.domain.mgmt.impl.TrackedHttpParamManagerImpl",
+            "items": [{
+                "listValue": [
+                    "data-holder",
+                    "context"
+                ],
+                "id": "AllowedTrackedParams",
+                "type": "LIST"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.metadata.partner.impl.MetadataDirectoryHybridDbImpl",
+            "items": [{
+                "stringValue": "true",
+                "id": "MigrationComplete8.4",
+                "type": "STRING"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.service.impl.PseudonymServiceSha1Impl",
+            "items": [{
+                "stringValue": "77+9CXDvv70=",
+                "id": "entropy",
+                "type": "STRING"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.service.session.data.impl.SessionStorageManagerLdapImpl",
+            "items": [
+                {
+                    "stringValue": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                    "id": "PingFederateDSJNDIName",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "ou=sessions,o=appintegrations",
+                    "id": "SearchBase",
+                    "type": "STRING"
+                }
+            ],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "response-header-admin-config",
+            "items": [{
+                "mapValue": {
+                    "include-patterns": "*",
+                    "value": "DENY"
+                },
+                "id": "X-Frame-Options",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "accepted": true,
+                "licenseAgreementUrl": "https://65632d17c336:9999/pf-admin-api/license-agreement"
+            }],
+            "resourceType": "/license/agreement"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "password": "${keyPairs_sslServer_items_wxom4n4v8ayu7yx47eqbj8bl0_wxom4n4v8ayu7yx47eqbj8bl0_password}",
+                "fileData": "${keyPairs_sslServer_items_wxom4n4v8ayu7yx47eqbj8bl0_wxom4n4v8ayu7yx47eqbj8bl0_fileData}",
+                "format": "PKCS12",
+                "id": "wxom4n4v8ayu7yx47eqbj8bl0"
+            }],
+            "resourceType": "/keyPairs/sslServer"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "activeRuntimeServerCerts": [{
+                    "location": "https://localhost:9999/pf-admin-api/v1/keyPairs/sslServer/wxom4n4v8ayu7yx47eqbj8bl0",
+                    "id": "wxom4n4v8ayu7yx47eqbj8bl0"
+                }],
+                "activeAdminConsoleCerts": [{
+                    "location": "https://localhost:9999/pf-admin-api/v1/keyPairs/sslServer/wxom4n4v8ayu7yx47eqbj8bl0",
+                    "id": "wxom4n4v8ayu7yx47eqbj8bl0"
+                }],
+                "adminConsoleCertRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/keyPairs/sslServer/wxom4n4v8ayu7yx47eqbj8bl0",
+                    "id": "wxom4n4v8ayu7yx47eqbj8bl0"
+                },
+                "runtimeServerCertRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/keyPairs/sslServer/wxom4n4v8ayu7yx47eqbj8bl0",
+                    "id": "wxom4n4v8ayu7yx47eqbj8bl0"
+                }
+            }],
+            "resourceType": "/keyPairs/sslServer/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "password": "${keyPairs_signing_items_85nv5o5p9pgodsne3w47n5hua_85nv5o5p9pgodsne3w47n5hua_password}",
+                "fileData": "${keyPairs_signing_items_85nv5o5p9pgodsne3w47n5hua_85nv5o5p9pgodsne3w47n5hua_fileData}",
+                "format": "PKCS12",
+                "id": "85nv5o5p9pgodsne3w47n5hua"
+            }],
+            "resourceType": "/keyPairs/signing"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "rsaDecryptionPublishX5cParameter": true,
+                "rsaActiveCertRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/keyPairs/signing/85nv5o5p9pgodsne3w47n5hua",
+                    "id": "85nv5o5p9pgodsne3w47n5hua"
+                },
+                "staticJwksEnabled": true,
+                "rsaPublishX5cParameter": true,
+                "rsaDecryptionActiveCertRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/keyPairs/signing/85nv5o5p9pgodsne3w47n5hua",
+                    "id": "85nv5o5p9pgodsne3w47n5hua"
+                }
+            }],
+            "resourceType": "/keyPairs/oauthOpenIdConnect"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "hostnamesTags": [{
+                    "defaultSource": true,
+                    "hostnames": ["pingdirectory:1389"]
+                }],
+                "timeBetweenEvictions": 60000,
+                "binaryAttributes": [],
+                "ldapType": "PING_DIRECTORY",
+                "type": "LDAP",
+                "password": "${dataStores_items_LDAP_C29DCC21274C10A483A76237675C3A22715D638C_LDAP_C29DCC21274C10A483A76237675C3A22715D638C_password}",
+                "minConnections": 10,
+                "createIfNecessary": true,
+                "id": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                "ldapDnsSrvPrefix": "_ldap._tcp",
+                "connectionTimeout": 3000,
+                "maxConnections": 100,
+                "ldapsDnsSrvPrefix": "_ldaps._tcp",
+                "useDnsSrvRecords": false,
+                "bindAnonymously": false,
+                "maxWait": -1,
+                "verifyHost": true,
+                "hostnames": ["pingdirectory:1389"],
+                "dnsTtl": 60000,
+                "useSsl": false,
+                "maskAttributeValues": false,
+                "testOnBorrow": false,
+                "testOnReturn": false,
+                "readTimeout": 3000,
+                "name": "pingdirectory",
+                "userDN": "cn=administrator"
+            }],
+            "resourceType": "/dataStores"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/notificationPublishers/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "federationInfo": {
+                    "saml2EntityId": "https://sso.${BASE_HOSTNAME}",
+                    "saml1xIssuerId": "",
+                    "wsfedRealm": "",
+                    "baseUrl": "https://sso-local.${BASE_HOSTNAME}",
+                    "saml1xSourceId": ""
+                },
+                "contactInfo": {},
+                "rolesAndProtocols": {
+                    "oauthRole": {
+                        "enableOpenIdConnect": true,
+                        "enableOauth": true
+                    },
+                    "enableIdpDiscovery": true,
+                    "spRole": {
+                        "enableSaml11": true,
+                        "enableWsFed": true,
+                        "enable": true,
+                        "enableWsTrust": true,
+                        "saml20Profile": {
+                            "enableXASP": true,
+                            "enable": true
+                        },
+                        "enableInboundProvisioning": true,
+                        "enableOpenIDConnect": true,
+                        "enableSaml10": true
+                    },
+                    "idpRole": {
+                        "enableSaml11": true,
+                        "enableWsFed": true,
+                        "enable": true,
+                        "enableWsTrust": true,
+                        "saml20Profile": {"enable": true},
+                        "enableOutboundProvisioning": true,
+                        "enableSaml10": true
+                    }
+                },
+                "notifications": {"notifyAdminUserPasswordChanges": false}
+            }],
+            "resourceType": "/serverSettings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "current": {
+                    "keyData": "${serverSettings_systemKeys_items_current_keyData}",
+                    "creationDate": "2020-09-09T22:08:13.640Z"
+                },
+                "pending": {
+                    "keyData": "${serverSettings_systemKeys_items_pending_keyData}",
+                    "creationDate": "2020-09-09T22:08:13.641Z"
+                }
+            }],
+            "resourceType": "/serverSettings/systemKeys"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
+            "resourceType": "/serverSettings/outboundProvisioning"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "password": "${PING_IDENTITY_PASSWORD}",
+                "roles": [
+                    "ADMINISTRATOR",
+                    "CRYPTO_ADMINISTRATOR",
+                    "EXPRESSION_ADMINISTRATOR",
+                    "USER_ADMINISTRATOR"
+                ],
+                "auditor": false,
+                "description": "Initial administrator user.",
+                "active": true,
+                "username": "Administrator"
+            }],
+            "resourceType": "/administrativeAccounts"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{"crlSettings": {
+                "nextRetryMinsWhenNextUpdateInPast": 60,
+                "verifyCrlSignature": true,
+                "nextRetryMinsWhenResolveFailed": 1440,
+                "treatNonRetrievableCrlAsRevoked": false
+            }}],
+            "resourceType": "/certificates/revocation/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{"virtualHostNames": [
+                "sso-admin.${BASE_HOSTNAME}",
+                "pingfederate",
+                "host.docker.internal",
+                "sso.${BASE_HOSTNAME}"
+            ]}],
+            "resourceType": "/virtualHostNames"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "redirectValidationLocalSettings": {
+                    "enableTargetResourceValidationForSLO": true,
+                    "enableInErrorResourceValidation": true,
+                    "whiteList": [],
+                    "enableTargetResourceValidationForSSO": true,
+                    "enableTargetResourceValidationForIdpDiscovery": true
+                },
+                "redirectValidationPartnerSettings": {"enableWreplyValidationSLO": true}
+            }],
+            "resourceType": "/redirectValidation"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "clientCertChainSSLHeaderName": "X-PFCertificateChain",
+                "clientCertSSLHeaderName": "X-PFCertificate",
+                "proxyTerminatesHttpsConns": true
+            }],
+            "resourceType": "/incomingProxySettings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "cacheDuration": 1440,
+                "reloadDelay": 1440
+            }],
+            "resourceType": "/protocolMetadata/lifetimeSettings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/protocolMetadata/signingSettings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/serviceAuthentication"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "idpErrorMsg": "errorDetail.idpSsoFailure",
+                "confirmIdpSlo": false
+            }],
+            "resourceType": "/idp/defaultUrls"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{"confirmSlo": false}],
+            "resourceType": "/sp/defaultUrls"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "trackAdapterSessionsForLogout": false,
+                "sessionRevocationLifetime": 490,
+                "revokeUserSessionOnLogout": false
+            }],
+            "resourceType": "/session/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "maxTimeoutMins": 480,
+                "idleTimeoutMins": 60
+            }],
+            "resourceType": "/session/applicationSessionPolicy"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "persistentSessions": true,
+                "hashUniqueUserKeyAttribute": false,
+                "maxTimeoutMins": 480,
+                "maxTimeoutDisplayUnit": "MINUTES",
+                "idleTimeoutMins": 60,
+                "idleTimeoutDisplayUnit": "MINUTES",
+                "enableSessions": true
+            }],
+            "resourceType": "/session/authenticationSessionPolicies/global"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/oauth/cibaServerPolicy/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/oauth/tokenExchange/processor/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{}],
+            "resourceType": "/oauth/tokenExchange/generator/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "apiEnabled": false,
+                "restrictAccessToRedirectlessMode": false,
+                "includeRequestContext": false,
+                "enableApiDescriptions": true
+            }],
+            "resourceType": "/authenticationApi/settings"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "enableSpAuthnSelection": false,
+                "enableIdpAuthnSelection": true
+            }],
+            "resourceType": "/authenticationPolicies/settings"
+        }
+    ]
+}

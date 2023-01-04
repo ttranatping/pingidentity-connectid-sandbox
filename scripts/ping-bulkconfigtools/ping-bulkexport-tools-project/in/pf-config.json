@@ -1,0 +1,112 @@
+{
+  "sort-arrays":[
+	"roles","scopes"
+  ],
+  "config-aliases":[
+        {
+          "config-names":[
+            "administrativeAccounts_items_Administrator_password"
+          ],
+          "replace-name": "PING_IDENTITY_PASSWORD",
+          "is-apply-envfile": false
+        }
+  ],
+  "search-replace":[
+    {
+      "search": "dc=data-holder,dc=com",
+      "replace": "${USER_BASE_DN}",
+      "apply-env-file": false
+    },
+    {
+      "search": "data-holder.local",
+      "replace": "${BASE_HOSTNAME}",
+      "apply-env-file": false
+    }
+  ],
+  "remove-config":[
+  	{
+  	  "key": "id",
+	  "value": "ProvisionerDS"
+  	}
+  ],
+  "expose-parameters":[
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=Issuer"
+      ]
+    },
+    {
+      "parameter-name": "encryptedCredential",
+      "replace-name": "credential",
+      "unique-identifiers": [
+          "id"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=Data Recipient Issuer"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=CDR Register Base URL"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=JWKS URL"
+      ]
+    },
+    {
+      "parameter-name": "fileData",
+      "unique-identifiers": [
+          "id"
+      ]
+    },
+    {
+      "parameter-name": "encryptedValue",
+      "replace-name": "value",
+      "unique-identifiers": [
+          "name"
+      ]
+    },
+    {
+      "parameter-name": "encryptedPassword",
+      "replace-name": "password",
+      "unique-identifiers": [
+          "id",
+          "username"
+      ]
+    },
+    {
+      "parameter-name": "encryptedKeyData",
+      "replace-name": "keyData",
+      "unique-identifiers": [
+          "id"
+      ]
+    },
+    {
+      "parameter-name": "encryptedSecret",
+      "replace-name": "secret",
+      "unique-identifiers": [
+          "clientId"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=PingID Properties"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=PingID SDK Properties"
+      ]
+    }
+  ]
+}
