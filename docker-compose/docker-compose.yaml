@@ -8,6 +8,7 @@ services:
       - ~/.pingidentity/devops
       - config.env
       - pf.env
+      - sensitive-config.env
     ports:
       - 443:9031
       - 9999:9999
@@ -27,6 +28,7 @@ services:
     env_file:
       - ~/.pingidentity/devops
       - config.env
+      - sensitive-config.env
     ports:
       - "3389:1389"
       - "3443:1443"
@@ -59,6 +61,7 @@ services:
     env_file:
       - ${HOME}/.pingidentity/devops
       - config.env
+      - sensitive-config.env
     ulimits:
       nproc:
         soft: 16384
