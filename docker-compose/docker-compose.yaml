@@ -5,7 +5,6 @@ services:
     image: pingidentity/pingfederate:edge
     command: wait-for pingdirectory:1389 -t 900 -- entrypoint.sh start-server
     env_file:
-      - ~/.pingidentity/devops
       - config.env
       - pf.env
       - sensitive-config.env
@@ -26,7 +25,6 @@ services:
       - MAKELDIF_USERS=10
       - MAX_HEAP_SIZE=768m
     env_file:
-      - ~/.pingidentity/devops
       - config.env
       - sensitive-config.env
     ports:
@@ -59,7 +57,6 @@ services:
 #      - MUTE_LICENSE_VERIFICATION=true
 #      - SERVER_PROFILE_PATH=server_profiles/pingdatasync
     env_file:
-      - ${HOME}/.pingidentity/devops
       - config.env
       - sensitive-config.env
     ulimits:
