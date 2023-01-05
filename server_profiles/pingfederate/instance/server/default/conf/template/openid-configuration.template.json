@@ -98,7 +98,7 @@ Keys available for use with the $info variable:
   "authorization_encryption_enc_values_supported"
 *#       
 
-#set($mtlsIssuer=$info.get('issuer') + ':9032')
+#set($mtlsIssuer=$info.get('issuer').replace('https://','https://mtls-'))
 
 {
   "issuer": "$info.get('issuer')",
