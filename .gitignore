@@ -14,5 +14,6 @@ scripts/ping-bulkconfigtools/ping-bulkexport-tools-project/in/pa-export.json
 scripts/ping-bulkconfigtools/ping-bulkexport-tools-project/in/out-pa-bulk-config.json
 scripts/ping-bulkconfigtools/ping-bulkexport-tools-project/in/out-pa-env.properties
 server_profiles/pingfederate/instance/server/default/conf/pingfederate.lic
+server_profiles/pingdatasync/certificates
 docker-compose/sensitive-config.env
 

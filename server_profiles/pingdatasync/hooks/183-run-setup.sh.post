@@ -1,0 +1,39 @@
+#!/usr/bin/env
+echo Hello from the baseline server profile 183-run-setup.sh.post hook!
+
+
+echo Adding ConnectID certificates
+
+manage-certificates import-certificate \
+    --keystore /opt/out/instance/config/truststore \
+    --keystore-type JKS \
+    --keystore-password-file /opt/out/instance/config/truststore.pin \
+    --alias connectidrootca \
+    --certificate-file /opt/staging/certificates/root-ca.pem \
+    --no-prompt
+
+manage-certificates import-certificate \
+    --keystore /opt/out/instance/config/keystore \
+    --keystore-type JKS \
+    --keystore-password-file /opt/out/instance/config/keystore.pin \
+    --alias connectidrootca \
+    --certificate-file /opt/staging/certificates/root-ca.pem \
+    --no-prompt
+
+manage-certificates import-certificate \
+    --keystore /opt/out/instance/config/keystore \
+    --keystore-type JKS \
+    --keystore-password-file /opt/out/instance/config/keystore.pin \
+    --alias connectidissuerca \
+    --certificate-file /opt/staging/certificates/issuer-ca.pem \
+    --no-prompt
+
+manage-certificates import-certificate \
+    --keystore /opt/out/instance/config/keystore \
+    --keystore-type JKS \
+    --keystore-password-file /opt/out/instance/config/keystore.pin \
+    --alias connectid \
+    --certificate-file /opt/staging/certificates/transport.pem \
+    --private-key-file /opt/staging/certificates/transport.key \
+    --display-keytool-command \
+    --no-prompt

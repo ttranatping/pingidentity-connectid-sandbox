@@ -67,6 +67,23 @@
         },
         {
             "operationType": "SAVE",
+            "subResource": "org.sourceid.saml20.domain.LoggingMode",
+            "items": [
+                {
+                    "stringValue": "false",
+                    "id": "IdPOverrideOn",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "false",
+                    "id": "SPOverrideOn",
+                    "type": "STRING"
+                }
+            ],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
             "subResource": "org.sourceid.saml20.domain.mgmt.AdminUserManager",
             "items": [{
                 "stringValue": "true",
@@ -152,7 +169,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://daeacf3fb426:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://77981fc916d6:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -320,7 +337,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -476,6 +499,46 @@
         },
         {
             "operationType": "SAVE",
+            "items": [{
+                "configuration": {
+                    "tables": [{
+                        "name": "Users",
+                        "rows": [{
+                            "defaultRow": false,
+                            "fields": [
+                                {
+                                    "name": "Username",
+                                    "value": "clientmanagement"
+                                },
+                                {
+                                    "name": "Password",
+                                    "value": "${passwordCredentialValidators_items_oauthAdminPCV_configuration_tables_rows_fields_Password_value}"
+                                },
+                                {
+                                    "name": "Confirm Password",
+                                    "value": "${passwordCredentialValidators_items_oauthAdminPCV_configuration_tables_rows_fields_Confirm_Password_value}"
+                                },
+                                {
+                                    "name": "Relax Password Requirements",
+                                    "value": "true"
+                                }
+                            ]
+                        }]
+                    }],
+                    "fields": []
+                },
+                "name": "oauthAdminPCV",
+                "id": "oauthAdminPCV",
+                "pluginDescriptorRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/passwordCredentialValidators/descriptors/org.sourceid.saml20.domain.SimpleUsernamePasswordCredentialValidator",
+                    "id": "org.sourceid.saml20.domain.SimpleUsernamePasswordCredentialValidator"
+                },
+                "attributeContract": {"coreAttributes": [{"name": "username"}]}
+            }],
+            "resourceType": "/passwordCredentialValidators"
+        },
+        {
+            "operationType": "SAVE",
             "items": [{}],
             "resourceType": "/oauth/accessTokenManagers/settings"
         },
@@ -504,6 +567,15 @@
         {
             "operationType": "SAVE",
             "items": [{
+                "name": "app_type",
+                "description": "Application Type",
+                "multiValued": false
+            }],
+            "resourceType": "/extendedProperties"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
                 "persistentGrantContract": {
                     "coreAttributes": [
                         {"name": "USER_KEY"},
@@ -512,7 +584,10 @@
                     "extendedAttributes": []
                 },
                 "scopeGroups": [],
+                "adminWebServicePcvRef": {"id": "oauthAdminPCV"},
+                "atmIdForOAuthGrantManagement": "",
                 "refreshRollingInterval": 0,
+                "tokenEndpointBaseUrl": "",
                 "trackUserSessionsForLogout": false,
                 "parStatus": "ENABLED",
                 "defaultScopeDescription": "",
@@ -542,6 +617,7 @@
                 "persistentGrantLifetimeUnit": "DAYS",
                 "activationCodeCheckMode": "AFTER_AUTHENTICATION",
                 "scopes": [],
+                "scopeForOAuthGrantManagement": "",
                 "parReferenceTimeout": 60,
                 "exclusiveScopes": [],
                 "parReferenceLength": 24,
@@ -605,7 +681,11 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"clientMetadata": []}],
+            "items": [{"clientMetadata": [{
+                "parameter": "app_type",
+                "description": "Application Type",
+                "multiValued": false
+            }]}],
             "resourceType": "/oauth/clientSettings"
         },
         {

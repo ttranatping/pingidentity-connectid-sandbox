@@ -1,0 +1,45 @@
+dsconfig create-sync-source \
+    --source-name ConnectIDRetrieveClientDataSyncSource \
+    --type third-party \
+    --set extension-class:com.pingidentity.ps.connectid.pds.ConnectIDRetrieveClientData \
+    --set extension-argument:mtls-keystore-ca-location=/opt/staging/certificates/root-ca.pem \
+    --set extension-argument:mtls-keystore-password-file=/opt/out/instance/config/keystore.pin \
+    --set extension-argument:mtls-keystore-location=/opt/out/instance/config/keystore \
+    --set extension-argument:mtls-keystore-alias=connectid \
+    --set extension-argument:tls-truststore-password-file=/opt/out/instance/config/truststore.pin \
+    --set extension-argument:tls-truststore-location=/opt/out/instance/config/truststore \
+    --set extension-argument:ignore-ssl-errors=false \
+    --set extension-argument:connectid-clients-endpoint=https://matls-auth.directory.sandbox.connectid.com.au/clients \
+    --set extension-argument:connectid-auth-discovery-endpoint=https://auth.directory.sandbox.connectid.com.au/.well-known/openid-configuration \
+    --set extension-argument:connectid-auth-token-scope=directory:software \
+    --set extension-argument:connectid-auth-token-clientid=7642d8c3-f1fb-4ebd-a0b3-3c716665d83d \
+    --set extension-argument:client-storage-basedn=ou=clients,o=appintegrations
+
+dsconfig create-sync-destination \
+    --destination-name PingFederateClientManagementDestination \
+    --type third-party \
+    --set extension-class:com.pingidentity.ps.connectid.pds.PingFederateClientManagementDestination \
+    --set extension-argument:pingdirectory-external-server-id=pingdirectory \
+    --set extension-argument:ignore-ssl-errors=true
+
+dsconfig create-sync-pipe \
+    --pipe-name ManageConnectIDOIDCClients \
+    --set started:true \
+    --set sync-source:ConnectIDRetrieveClientDataSyncSource \
+    --set sync-destination:PingFederateClientManagementDestination \
+    --set "change-detection-polling-interval:20 s" \
+    --set max-operation-attempts:1
+
+dsconfig create-sync-class \
+    --pipe-name ManageConnectIDOIDCClients \
+    --class-name PollClients \
+    --set auto-mapped-source-attribute:pf-oauth-client-id \
+    --set auto-mapped-source-attribute:pf-oauth-client-software-statement \
+    --set synchronize-deletes:false \
+    --set modifies-as-creates:true \
+    --set creates-as-modifies:true
+
+dsconfig set-log-publisher-prop \
+    --publisher-name "Server SDK Extension Debug Logger" \
+    --set enabled:true \
+    --set default-debug-level:all
