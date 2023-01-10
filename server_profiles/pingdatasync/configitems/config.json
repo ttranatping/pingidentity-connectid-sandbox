@@ -89,6 +89,18 @@
 			"pingfederate-client-claim": "clientId",
 			"is-required": true,
 			"type": "base"
+		},
+		{
+			"software-statement-claim": "sector_identifier_uri",
+			"pingfederate-client-claim": "sectorIdentifierUri",
+			"is-required": false,
+			"type": "base"
+		},
+		{
+			"software-statement-claim": "last_updated",
+			"pingfederate-client-claim": "register_last_updated",
+			"is-required": false,
+			"type": "extendedproperty"
 		}
 	]
 }

@@ -744,6 +744,11 @@
                     "name": "software_version",
                     "description": "",
                     "multiValued": false
+                },
+                {
+                    "name": "register_last_updated",
+                    "description": "",
+                    "multiValued": false
                 }
             ],
             "resourceType": "/extendedProperties"
@@ -869,6 +874,11 @@
                 },
                 {
                     "parameter": "software_version",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
+                    "parameter": "register_last_updated",
                     "description": "",
                     "multiValued": false
                 }
