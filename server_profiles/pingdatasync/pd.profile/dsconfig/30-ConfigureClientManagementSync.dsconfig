@@ -20,6 +20,11 @@ dsconfig create-sync-destination \
     --type third-party \
     --set extension-class:com.pingidentity.ps.connectid.pds.PingFederateClientManagementDestination \
     --set extension-argument:pingdirectory-external-server-id=pingdirectory \
+    --set extension-argument:tls-truststore-password-file=/opt/out/instance/config/truststore.pin \
+    --set extension-argument:tls-truststore-location=/opt/out/instance/config/truststore \
+    --set extension-argument:pingfederate-clients-endpoint=https://pingfederate:9031/pf-ws/rest/oauth/clients \
+    --set extension-argument:pingfederate-clients-endpoint-authz-b64=Y2xpZW50bWFuYWdlbWVudDoyRmVkZXJhdGVNMHJl \
+    --set extension-argument:pingfederate-default-client-config-json-file=/opt/staging/configitems/config.json \
     --set extension-argument:ignore-ssl-errors=true
 
 dsconfig create-sync-pipe \

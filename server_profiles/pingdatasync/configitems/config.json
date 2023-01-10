@@ -1,0 +1,96 @@
+{
+	"client-template": {
+	    "enabled": "true",
+	    "bypassApprovalPage": "true",
+	    "clientAuthnType": "PRIVATE_KEY_JWT",
+	    "clientId": "testclient",
+	    "tokenEndpointAuthSigningAlgorithm": "PS256",
+	    "enforceReplayPrevention": "true",
+	    "grantTypes": "authorization_code",
+	    "pairwiseUserType": "true",
+	    "requestObjectSigningAlgorithm": "PS256",
+	    "requireProofKeyForCodeExchange": "true",
+	    "requirePushedAuthorizationRequests": "true",
+	    "restrictScopes": "true",
+	    "restrictedScopes": "openid",
+	    "requireSignedRequests": "true",
+	    "restrictedResponseTypes": "code",
+	    "restrictToDefaultAccessTokenManager": "true",
+	    "validateUsingAllEligibleAtms": "false",
+        "defaultAccessTokenManagerId": "connectIDATM",
+	    "extendedParams": {
+	        "entry": [
+	            {
+	                "key": "app_type",
+	                "value": {
+	                    "elements": "connectid_relyingparty"
+	                }
+	            }
+	        ]
+	    }
+	},
+	"software-statement-mapping": [
+		{
+			"software-statement-claim": "redirect_uris",
+			"pingfederate-client-claim": "redirectUris",
+			"is-required": true,
+			"type": "base"
+		},
+		{
+			"software-statement-claim": "client_name",
+			"pingfederate-client-claim": "name",
+			"is-required": true,
+			"type": "base"
+		},
+		{
+			"software-statement-claim": "client_uri",
+			"pingfederate-client-claim": "client_uri",
+			"is-required": true,
+			"type": "extendedproperty"
+		},
+		{
+			"software-statement-claim": "logo_uri",
+			"pingfederate-client-claim": "logoUrl",
+			"is-required": true,
+			"type": "base"
+		},
+		{
+			"software-statement-claim": "tos_uri",
+			"pingfederate-client-claim": "tos_uri",
+			"is-required": false,
+			"type": "extendedproperty"
+		},
+		{
+			"software-statement-claim": "policy_uri",
+			"pingfederate-client-claim": "policy_uri",
+			"is-required": false,
+			"type": "base"
+		},
+		{
+			"software-statement-claim": "jwks_uri",
+			"pingfederate-client-claim": "jwksUrl",
+			"is-required": true,
+			"type": "base"
+		},
+		{
+			"software-statement-claim": "software_id",
+			"pingfederate-client-claim": "software_id",
+			"is-required": false,
+			"type": "extendedproperty"
+		},
+		{
+			"software-statement-claim": "software_version",
+			"pingfederate-client-claim": "software_version",
+			"is-required": false,
+			"type": "extendedproperty"
+		},
+		{
+			"software-statement-claim": "client_id",
+			"pingfederate-client-claim": "clientId",
+			"is-required": true,
+			"type": "base"
+		}
+	]
+}
+
+
