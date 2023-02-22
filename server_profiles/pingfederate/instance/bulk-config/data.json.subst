@@ -1,5 +1,5 @@
 {
-    "metadata": {"pfVersion": "11.2.0.8"},
+    "metadata": {"pfVersion": "11.2.2.0"},
     "operations": [
         {
             "operationType": "SAVE",
@@ -169,7 +169,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://41d8b1c17bbc:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://968ef210a2bf:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -337,7 +337,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -603,7 +609,7 @@
                         },
                         {
                             "name": "Include X.509 Thumbprint Header Parameter",
-                            "value": ""
+                            "value": "false"
                         },
                         {
                             "name": "Default JWKS URL Cache Duration",
@@ -615,7 +621,7 @@
                         },
                         {
                             "name": "Include JWE X.509 Thumbprint Header Parameter",
-                            "value": ""
+                            "value": "false"
                         },
                         {
                             "name": "Client ID Claim Name",
@@ -659,11 +665,11 @@
                         },
                         {
                             "name": "Publish Key ID X.509 URL",
-                            "value": ""
+                            "value": "false"
                         },
                         {
                             "name": "Publish Thumbprint X.509 URL",
-                            "value": ""
+                            "value": "false"
                         },
                         {
                             "name": "Expand Scope Groups",
@@ -741,12 +747,17 @@
                     "multiValued": false
                 },
                 {
-                    "name": "software_version",
+                    "name": "register_last_updated",
                     "description": "",
                     "multiValued": false
                 },
                 {
-                    "name": "register_last_updated",
+                    "name": "software_id",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
+                    "name": "software_version",
                     "description": "",
                     "multiValued": false
                 }
@@ -863,6 +874,11 @@
             "operationType": "SAVE",
             "items": [{"clientMetadata": [
                 {
+                    "parameter": "software_id",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
                     "parameter": "app_type",
                     "description": "Application Type",
                     "multiValued": false
@@ -873,12 +889,12 @@
                     "multiValued": false
                 },
                 {
-                    "parameter": "software_version",
+                    "parameter": "register_last_updated",
                     "description": "",
                     "multiValued": false
                 },
                 {
-                    "parameter": "register_last_updated",
+                    "parameter": "software_version",
                     "description": "",
                     "multiValued": false
                 }
