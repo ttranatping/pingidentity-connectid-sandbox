@@ -169,7 +169,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://968ef210a2bf:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://90bb86a54a89:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -337,13 +337,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -747,6 +741,16 @@
                     "multiValued": false
                 },
                 {
+                    "name": "last_updated",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
+                    "name": "policy_uri",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
                     "name": "register_last_updated",
                     "description": "",
                     "multiValued": false
@@ -758,6 +762,11 @@
                 },
                 {
                     "name": "software_version",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
+                    "name": "tos_uri",
                     "description": "",
                     "multiValued": false
                 }
@@ -879,6 +888,11 @@
                     "multiValued": false
                 },
                 {
+                    "parameter": "last_updated",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
                     "parameter": "app_type",
                     "description": "Application Type",
                     "multiValued": false
@@ -895,6 +909,16 @@
                 },
                 {
                     "parameter": "software_version",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
+                    "parameter": "tos_uri",
+                    "description": "",
+                    "multiValued": false
+                },
+                {
+                    "parameter": "policy_uri",
                     "description": "",
                     "multiValued": false
                 }
