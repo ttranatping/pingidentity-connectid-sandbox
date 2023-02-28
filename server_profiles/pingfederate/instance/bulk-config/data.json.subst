@@ -169,7 +169,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://0ace1a9947e4:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://dc0da472dd56:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -345,7 +345,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -1267,13 +1273,13 @@
         {
             "operationType": "SAVE",
             "items": [{
-                "persistentSessions": true,
+                "persistentSessions": false,
                 "hashUniqueUserKeyAttribute": false,
                 "maxTimeoutMins": 480,
                 "maxTimeoutDisplayUnit": "MINUTES",
                 "idleTimeoutMins": 60,
                 "idleTimeoutDisplayUnit": "MINUTES",
-                "enableSessions": true
+                "enableSessions": false
             }],
             "resourceType": "/session/authenticationSessionPolicies/global"
         },
