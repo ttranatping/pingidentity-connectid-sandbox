@@ -5,6 +5,7 @@
 	    "clientAuthnType": "PRIVATE_KEY_JWT",
 	    "clientId": "testclient",
 	    "tokenEndpointAuthSigningAlgorithm": "PS256",
+	    "idTokenSigningAlgorithm": "PS256",
 	    "enforceReplayPrevention": "true",
 	    "grantTypes": "authorization_code",
 	    "pairwiseUserType": "true",
