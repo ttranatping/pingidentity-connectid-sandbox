@@ -169,7 +169,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://f54521ee7246:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://0ace1a9947e4:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -345,13 +345,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -1240,7 +1234,11 @@
                 "authorizationCodeTimeout": 60,
                 "persistentGrantLifetimeUnit": "DAYS",
                 "activationCodeCheckMode": "AFTER_AUTHENTICATION",
-                "scopes": [],
+                "scopes": [{
+                    "name": "openid",
+                    "description": "OpenID Connect",
+                    "dynamic": false
+                }],
                 "scopeForOAuthGrantManagement": "",
                 "parReferenceTimeout": 60,
                 "exclusiveScopes": [],
@@ -1311,15 +1309,21 @@
             "operationType": "SAVE",
             "items": [{
                 "attributeMapping": {
-                    "attributeContractFulfillment": {"sub": {
-                        "source": {"type": "OAUTH_PERSISTENT_GRANT"},
-                        "value": "USER_KEY"
-                    }},
+                    "attributeContractFulfillment": {
+                        "sub": {
+                            "source": {"type": "OAUTH_PERSISTENT_GRANT"},
+                            "value": "USER_KEY"
+                        },
+                        "txn": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@java.util.UUID@randomUUID().toString()"
+                        }
+                    },
                     "attributeSources": [],
                     "issuanceCriteria": {"conditionalCriteria": []}
                 },
                 "name": "connectIDOIDCPolicy",
-                "scopeAttributeMappings": {},
+                "scopeAttributeMappings": {"openid": {"values": ["txn"]}},
                 "returnIdTokenOnRefreshGrant": false,
                 "id": "connectIDOIDCPolicy",
                 "reissueIdTokenInHybridFlow": false,
@@ -1332,7 +1336,12 @@
                         "name": "sub",
                         "multiValued": false
                     }],
-                    "extendedAttributes": []
+                    "extendedAttributes": [{
+                        "includeInUserInfo": true,
+                        "name": "txn",
+                        "includeInIdToken": true,
+                        "multiValued": false
+                    }]
                 },
                 "accessTokenManagerRef": {
                     "location": "https://localhost:9999/pf-admin-api/v1/oauth/accessTokenManagers/connectIDATM",
