@@ -169,9 +169,17 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://90bb86a54a89:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://f54521ee7246:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{
+                "fileData": "${certificates_ca_items_7h08l7j2yidl0eydpg80sy2pn_7h08l7j2yidl0eydpg80sy2pn_fileData}",
+                "id": "7h08l7j2yidl0eydpg80sy2pn"
+            }],
+            "resourceType": "/certificates/ca"
         },
         {
             "operationType": "SAVE",
@@ -337,7 +345,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
