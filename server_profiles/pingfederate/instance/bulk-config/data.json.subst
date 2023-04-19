@@ -1448,7 +1448,7 @@
                 "exclusiveScopeGroups": [],
                 "userAuthorizationConsentPageSetting": "INTERNAL",
                 "bypassActivationCodeConfirmation": false,
-                "includeIssuerInAuthorizationResponse": false,
+                "includeIssuerInAuthorizationResponse": true,
                 "persistentGrantReuseGrantTypes": ["IMPLICIT"],
                 "registeredAuthorizationPath": "",
                 "persistentGrantLifetime": -1,
