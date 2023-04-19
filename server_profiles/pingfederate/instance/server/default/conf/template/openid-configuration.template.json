@@ -142,7 +142,7 @@ Keys available for use with the $info variable:
   "token_endpoint_auth_signing_alg_values_supported":  $utils.toJsonArray($info.get('token_endpoint_auth_signing_alg_values_supported')),
 #if($info.get('type') == "openid-connect")                                        
   "claim_types_supported": $utils.toJsonArray($info.get('claim_types_supported')),
-  "claims_parameter_supported": $info.get('claims_parameter_supported'),    
+  "claims_parameter_supported": true,    
 #end                                                                      
   "request_parameter_supported": $info.get('request_parameter_supported'),        
   "request_uri_parameter_supported": $info.get('request_uri_parameter_supported'),                              
@@ -169,5 +169,6 @@ Keys available for use with the $info variable:
   "backchannel_token_delivery_modes_supported": $utils.toJsonArray($info.get('backchannel_token_delivery_modes_supported')),                                          
   "backchannel_authentication_request_signing_alg_values_supported": $utils.toJsonArray($info.get('backchannel_authentication_request_signing_alg_values_supported')),
   "backchannel_user_code_parameter_supported": $info.get('backchannel_user_code_parameter_supported'), 
-  "code_challenge_methods_supported": $utils.toJsonArray($info.get('code_challenge_methods_supported'))
+  "code_challenge_methods_supported": $utils.toJsonArray($info.get('code_challenge_methods_supported')),
+  "tls_client_certificate_bound_access_tokens": true
 }                                                
