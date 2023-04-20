@@ -3,6 +3,81 @@
     "operations": [
         {
             "operationType": "SAVE",
+            "subResource": "cipher-suite-settings",
+            "items": [{
+                "stringValue": "true",
+                "id": "prefer-server-cipher-suites",
+                "type": "STRING"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "com.pingidentity.crypto.BCFIPSJCEManager",
+            "items": [{
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "com.pingidentity.crypto.LunaJCEManager",
+            "items": [{
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "com.pingidentity.crypto.AWSCloudHSMJCEManager",
+            "items": [{
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "com.pingidentity.crypto.NcipherJCEManager",
+            "items": [{
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "com.pingidentity.crypto.SunJCEManager",
+            "items": [{
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
             "subResource": "org.sourceid.oauth20.domain.AuthzServerManagerImpl",
             "items": [
                 {
