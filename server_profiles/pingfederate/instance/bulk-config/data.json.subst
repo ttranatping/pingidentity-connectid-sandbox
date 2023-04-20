@@ -3,6 +3,16 @@
     "operations": [
         {
             "operationType": "SAVE",
+            "subResource": "cipher-suite-settings",
+            "items": [{
+                "stringValue": "false",
+                "id": "prefer-server-cipher-suites",
+                "type": "STRING"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
             "subResource": "com.pingidentity.crypto.BCFIPSJCEManager",
             "items": [{
                 "mapValue": {
