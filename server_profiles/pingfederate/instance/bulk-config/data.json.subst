@@ -1683,7 +1683,7 @@
                         },
                         "middle_name": {
                             "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"middle_name\", \"profile\", \"ds.ldap.givenName\")"
                         },
                         "address.country": {
                             "source": {"type": "EXPRESSION"},
@@ -1731,6 +1731,7 @@
                             "description": "ldap",
                             "id": "ldap",
                             "searchAttributes": [
+                                "Subject DN",
                                 "c",
                                 "description",
                                 "givenName",
@@ -1740,8 +1741,7 @@
                                 "postalCode",
                                 "sn",
                                 "st",
-                                "street",
-                                "Subject DN"
+                                "street"
                             ],
                             "type": "LDAP",
                             "baseDn": "ou=people,${USER_BASE_DN}",
