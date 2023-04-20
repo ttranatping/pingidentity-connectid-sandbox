@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
-    <con:map name="enabled-cipher-suites">
-
-        <con:item name="TLS_DHE_RSA_WITH_AES_128_GCM_SHA256"/>
-        <con:item name="TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"/>
-
-    </con:map>
-</con:config>
