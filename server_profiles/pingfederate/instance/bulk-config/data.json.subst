@@ -281,7 +281,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://681e2ce5e24d:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://d91d5766e2c9:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -587,13 +587,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -687,12 +681,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"crlSettings": {
-                "nextRetryMinsWhenNextUpdateInPast": 60,
-                "verifyCrlSignature": true,
-                "nextRetryMinsWhenResolveFailed": 1440,
-                "treatNonRetrievableCrlAsRevoked": false
-            }}],
+            "items": [{}],
             "resourceType": "/certificates/revocation/settings"
         },
         {
@@ -1567,7 +1556,7 @@
                 "jwtSecuredAuthorizationResponseModeLifetime": 600,
                 "clientSecretRetentionPeriod": 0,
                 "pendingAuthorizationTimeout": 600,
-                "disallowPlainPKCE": false,
+                "disallowPlainPKCE": true,
                 "exclusiveScopeGroups": [],
                 "userAuthorizationConsentPageSetting": "INTERNAL",
                 "bypassActivationCodeConfirmation": false,
@@ -1686,13 +1675,16 @@
                         },
                         "txn": {
                             "source": {"type": "EXPRESSION"},
-                            "value": "@java.util.UUID@randomUUID().toString()"
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"txn\", \"txn\", \"txn\")"
                         },
                         "given_name": {
                             "source": {"type": "EXPRESSION"},
                             "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
                         },
-                        "middle_name": {"source": {"type": "NO_MAPPING"}},
+                        "middle_name": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
+                        },
                         "address.country": {
                             "source": {"type": "EXPRESSION"},
                             "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.c\")"
