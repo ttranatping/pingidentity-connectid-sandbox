@@ -3,11 +3,16 @@
     "operations": [
         {
             "operationType": "SAVE",
-            "subResource": "cipher-suite-settings",
+            "subResource": "com.pingidentity.crypto.AWSCloudHSMJCEManager",
             "items": [{
-                "stringValue": "true",
-                "id": "prefer-server-cipher-suites",
-                "type": "STRING"
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
             }],
             "resourceType": "/configStore"
         },
@@ -17,7 +22,9 @@
             "items": [{
                 "mapValue": {
                     "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
-                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
                 "type": "MAP"
@@ -30,20 +37,9 @@
             "items": [{
                 "mapValue": {
                     "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
-                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
-                },
-                "id": "enabled-cipher-suites",
-                "type": "MAP"
-            }],
-            "resourceType": "/configStore"
-        },
-        {
-            "operationType": "SAVE",
-            "subResource": "com.pingidentity.crypto.AWSCloudHSMJCEManager",
-            "items": [{
-                "mapValue": {
-                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
-                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
                 "type": "MAP"
@@ -56,7 +52,9 @@
             "items": [{
                 "mapValue": {
                     "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
-                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
                 "type": "MAP"
@@ -69,7 +67,9 @@
             "items": [{
                 "mapValue": {
                     "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
-                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": ""
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
                 "type": "MAP"
@@ -244,7 +244,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://267c8e9199a4:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://4ead7310b028:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -550,13 +550,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -720,7 +714,8 @@
                 "extendedAttributes": [
                     {"name": "claims_idtoken"},
                     {"name": "claims_userinfo"},
-                    {"name": "claims_parameter_b64"}
+                    {"name": "claims_parameter_b64"},
+                    {"name": "txn"}
                 ]
             }],
             "resourceType": "/authenticationPolicyContracts"
@@ -1009,10 +1004,20 @@
                 "attributeContract": {
                     "defaultSubjectAttribute": "sub",
                     "coreAttributes": [],
-                    "extendedAttributes": [{
-                        "name": "sub",
-                        "multiValued": false
-                    }]
+                    "extendedAttributes": [
+                        {
+                            "name": "sub",
+                            "multiValued": false
+                        },
+                        {
+                            "name": "cnf",
+                            "multiValued": false
+                        },
+                        {
+                            "name": "txn",
+                            "multiValued": false
+                        }
+                    ]
                 },
                 "selectionSettings": {"resourceUris": []}
             }],
@@ -1621,8 +1626,8 @@
                 "attributeMapping": {
                     "attributeContractFulfillment": {
                         "sub": {
-                            "source": {"type": "OAUTH_PERSISTENT_GRANT"},
-                            "value": "USER_KEY"
+                            "source": {"type": "TOKEN"},
+                            "value": "sub"
                         },
                         "verified_claims": {
                             "source": {"type": "EXPRESSION"},
@@ -1909,10 +1914,20 @@
                     },
                     "type": "AUTHENTICATION_POLICY_CONTRACT"
                 },
-                "attributeContractFulfillment": {"sub": {
-                    "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
-                    "value": "subject"
-                }},
+                "attributeContractFulfillment": {
+                    "sub": {
+                        "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                        "value": "subject"
+                    },
+                    "cnf": {
+                        "source": {"type": "EXPRESSION"},
+                        "value": "#req = #this.get(\"context.HttpRequest\").getObjectValue(),\n#certs = #req.getAttribute(\"javax.servlet.request.X509Certificate\"),\n#done = (#certs == null) ? null : @java.util.Collections@singletonMap(\"x5t#S256\", \n    @java.util.Base64@getUrlEncoder().withoutPadding().encodeToString(\n      @java.security.MessageDigest@getInstance(\"SHA-256\").digest(#certs[0].getEncoded())))"
+                    },
+                    "txn": {
+                        "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                        "value": "txn"
+                    }
+                },
                 "id": "authz_req|apc.dm5v8wW22rqcwWEY|connectIDATM",
                 "attributeSources": [],
                 "issuanceCriteria": {"conditionalCriteria": []},
@@ -1985,6 +2000,10 @@
                                                         "type": "ADAPTER"
                                                     },
                                                     "value": "claims_userinfo"
+                                                },
+                                                "txn": {
+                                                    "source": {"type": "EXPRESSION"},
+                                                    "value": "@java.util.UUID@randomUUID().toString()"
                                                 }
                                             },
                                             "attributeSources": [],
