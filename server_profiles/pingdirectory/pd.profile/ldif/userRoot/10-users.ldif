@@ -3,6 +3,7 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: ubidPersonAux
 objectClass: pf-connected-identities
 sn: Brooke
 cn: rbrooke
@@ -26,6 +27,7 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: ubidPersonAux
 objectClass: pf-connected-identities
 sn: Stone
 cn: astone
@@ -49,6 +51,7 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: ubidPersonAux
 objectClass: pf-connected-identities
 sn: Hope
 cn: bhope
@@ -72,6 +75,7 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: ubidPersonAux
 objectClass: pf-connected-identities
 sn: King
 c: au
@@ -95,6 +99,7 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: ubidPersonAux
 objectClass: pf-connected-identities
 sn: Watts
 c: au
@@ -118,6 +123,7 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
+objectClass: ubidPersonAux
 objectClass: pf-connected-identities
 sn: Jones
 c: au
