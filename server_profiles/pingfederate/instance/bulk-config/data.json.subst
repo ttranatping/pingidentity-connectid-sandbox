@@ -26,12 +26,12 @@
                     "type": "STRING"
                 },
                 {
-                    "stringValue": "3600",
+                    "stringValue": "60",
                     "id": "maxFutureValidityInMinutes",
                     "type": "STRING"
                 },
                 {
-                    "stringValue": "3600",
+                    "stringValue": "60",
                     "id": "maxPastValidityInMinutes",
                     "type": "STRING"
                 }
