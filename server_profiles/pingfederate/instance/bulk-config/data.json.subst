@@ -3,6 +3,43 @@
     "operations": [
         {
             "operationType": "SAVE",
+            "subResource": "jwt-request-object-options",
+            "items": [
+                {
+                    "stringValue": "true",
+                    "id": "require-client_id",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-aud",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-exp",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-nbf",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "3600",
+                    "id": "maxFutureValidityInMinutes",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "3600",
+                    "id": "maxPastValidityInMinutes",
+                    "type": "STRING"
+                }
+            ],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
             "subResource": "com.pingidentity.crypto.AWSCloudHSMJCEManager",
             "items": [{
                 "mapValue": {
