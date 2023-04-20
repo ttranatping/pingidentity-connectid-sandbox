@@ -3,6 +3,21 @@
     "operations": [
         {
             "operationType": "SAVE",
+            "subResource": "com.pingidentity.crypto.SunJCEManager",
+            "items": [{
+                "mapValue": {
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
+                    "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
+                },
+                "id": "enabled-cipher-suites",
+                "type": "MAP"
+            }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
             "subResource": "org.sourceid.oauth20.domain.AuthzServerManagerImpl",
             "items": [
                 {
