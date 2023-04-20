@@ -3,49 +3,12 @@
     "operations": [
         {
             "operationType": "SAVE",
-            "subResource": "jwt-request-object-options",
-            "items": [
-                {
-                    "stringValue": "true",
-                    "id": "require-client_id",
-                    "type": "STRING"
-                },
-                {
-                    "stringValue": "true",
-                    "id": "require-aud",
-                    "type": "STRING"
-                },
-                {
-                    "stringValue": "true",
-                    "id": "require-exp",
-                    "type": "STRING"
-                },
-                {
-                    "stringValue": "true",
-                    "id": "require-nbf",
-                    "type": "STRING"
-                },
-                {
-                    "stringValue": "60",
-                    "id": "maxFutureValidityInMinutes",
-                    "type": "STRING"
-                },
-                {
-                    "stringValue": "60",
-                    "id": "maxPastValidityInMinutes",
-                    "type": "STRING"
-                }
-            ],
-            "resourceType": "/configStore"
-        },
-        {
-            "operationType": "SAVE",
             "subResource": "com.pingidentity.crypto.AWSCloudHSMJCEManager",
             "items": [{
                 "mapValue": {
-                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
@@ -58,9 +21,9 @@
             "subResource": "com.pingidentity.crypto.BCFIPSJCEManager",
             "items": [{
                 "mapValue": {
-                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
@@ -73,9 +36,9 @@
             "subResource": "com.pingidentity.crypto.LunaJCEManager",
             "items": [{
                 "mapValue": {
-                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
@@ -88,9 +51,9 @@
             "subResource": "com.pingidentity.crypto.NcipherJCEManager",
             "items": [{
                 "mapValue": {
-                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
@@ -103,14 +66,51 @@
             "subResource": "com.pingidentity.crypto.SunJCEManager",
             "items": [{
                 "mapValue": {
-                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384": "",
+                    "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256": "",
                     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": ""
                 },
                 "id": "enabled-cipher-suites",
                 "type": "MAP"
             }],
+            "resourceType": "/configStore"
+        },
+        {
+            "operationType": "SAVE",
+            "subResource": "jwt-request-object-options",
+            "items": [
+                {
+                    "stringValue": "60",
+                    "id": "maxFutureValidityInMinutes",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "60",
+                    "id": "maxPastValidityInMinutes",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-aud",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-client_id",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-exp",
+                    "type": "STRING"
+                },
+                {
+                    "stringValue": "true",
+                    "id": "require-nbf",
+                    "type": "STRING"
+                }
+            ],
             "resourceType": "/configStore"
         },
         {
@@ -281,7 +281,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://4ead7310b028:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://681e2ce5e24d:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -587,7 +587,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -1670,8 +1676,14 @@
                             "source": {"type": "EXPRESSION"},
                             "value": "#parser = new org.json.simple.parser.JSONParser(),\n#decoder = @java.util.Base64@getDecoder(),\n\n#returnValue = null,\n\n#isUserInfo = (#this.get(\"context.HttpRequest\").getObjectValue().getRequestURI().endsWith(\"userinfo.openid\")),\n\n#claimsParameter = #this.get(\"ds.rest.response\"),\n\n#claimsParameterDecoded = (#claimsParameter != null)? \n  new java.lang.String(#decoder.decode(@java.net.URLDecoder@decode(#claimsParameter.toString()))):\"{}\",\n\n#claimsParameterJSON = #parser.parse(#claimsParameterDecoded),\n\n#requestedClaims = (#isUserInfo)?(#claimsParameter != null? #claimsParameterJSON.get(\"userinfo\"):null):(#claimsParameter != null? #claimsParameterJSON.get(\"id_token\"):null),\n\n#verifiedClaims = (#requestedClaims != null && #requestedClaims.containsKey(\"verified_claims\"))?#requestedClaims.get(\"verified_claims\"):null,\n\n#verifiedClaims"
                         },
-                        "address.locality": {"source": {"type": "NO_MAPPING"}},
-                        "birthdate": {"source": {"type": "NO_MAPPING"}},
+                        "address.locality": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.l\")"
+                        },
+                        "birthdate": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"birthdate\", \"profile\", \"ds.ldap.description\")"
+                        },
                         "txn": {
                             "source": {"type": "EXPRESSION"},
                             "value": "@java.util.UUID@randomUUID().toString()"
@@ -1681,18 +1693,39 @@
                             "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
                         },
                         "middle_name": {"source": {"type": "NO_MAPPING"}},
-                        "address.country": {"source": {"type": "NO_MAPPING"}},
-                        "address.postal_code": {"source": {"type": "NO_MAPPING"}},
-                        "address.region": {"source": {"type": "NO_MAPPING"}},
-                        "name": {"source": {"type": "NO_MAPPING"}},
-                        "phone_number": {"source": {"type": "NO_MAPPING"}},
+                        "address.country": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.c\")"
+                        },
+                        "address.postal_code": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.postalCode\")"
+                        },
+                        "address.region": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.st\")"
+                        },
+                        "name": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
+                        },
+                        "phone_number": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"phone_number\", \"profile\", \"ds.ldap.mobile\")"
+                        },
                         "address.formatted": {"source": {"type": "NO_MAPPING"}},
                         "family_name": {
                             "source": {"type": "EXPRESSION"},
                             "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"family_name\", \"profile\", \"ds.ldap.sn\")"
                         },
-                        "email": {"source": {"type": "NO_MAPPING"}},
-                        "address.street_address": {"source": {"type": "NO_MAPPING"}}
+                        "email": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"email\", \"email\", \"ds.ldap.mail\")"
+                        },
+                        "address.street_address": {
+                            "source": {"type": "EXPRESSION"},
+                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.street\")"
+                        }
                     },
                     "attributeSources": [
                         {
@@ -1706,9 +1739,17 @@
                             "description": "ldap",
                             "id": "ldap",
                             "searchAttributes": [
-                                "Subject DN",
+                                "c",
+                                "description",
                                 "givenName",
-                                "sn"
+                                "l",
+                                "mail",
+                                "mobile",
+                                "postalCode",
+                                "sn",
+                                "st",
+                                "street",
+                                "Subject DN"
                             ],
                             "type": "LDAP",
                             "baseDn": "ou=people,${USER_BASE_DN}",

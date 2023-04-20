@@ -7,6 +7,14 @@ objectClass: pf-connected-identities
 sn: Brooke
 cn: rbrooke
 givenName: Raeann
+c: au
+st: Victoria
+l: Melbourne
+postalCode: 3000
+streetAddress: 101 Collins St
+description: 1985-03-29
+mail: crn0@fakemail.com
+mobile: 0400333222
 uid: CRN0
 userPassword: password
 pf-connected-identity: auth-source=pf-local-identity:user-id=CRN0
@@ -22,6 +30,14 @@ objectClass: pf-connected-identities
 sn: Stone
 cn: astone
 givenName: Alice
+c: au
+st: Victoria
+l: Melbourne
+postalCode: 3000
+mobile: 0400333222
+streetAddress: 101 Collins S
+mail: crn1@fakemail.comt
+description: 1985-03-29
 uid: CRN1
 userPassword: password
 pf-connected-identity: auth-source=pf-local-identity:user-id=CRN1
@@ -37,6 +53,14 @@ objectClass: pf-connected-identities
 sn: Hope
 cn: bhope
 givenName: Bob
+c: au
+st: Victoria
+l: Melbourne
+mobile: 0400333222
+postalCode: 3000
+streetAddress: 101 Collins St
+mail: crn2@fakemail.com
+description: 1985-03-29
 uid: CRN2
 userPassword: password
 pf-connected-identity: auth-source=pf-local-identity:user-id=CRN2
@@ -50,9 +74,17 @@ objectClass: organizationalPerson
 objectClass: inetOrgPerson
 objectClass: pf-connected-identities
 sn: King
+c: au
+st: Victoria
+l: Melbourne
+postalCode: 3000
+streetAddress: 101 Collins St
+mobile: 0400333222
+mail: crn3@fakemail.com
 cn: kking
 givenName: Carol
 uid: CRN3
+description: 1985-03-29
 userPassword: password
 pf-connected-identity: auth-source=pf-local-ideontity:user-id=CRN3
 entryuuid: fbca9ee0-5132-3e3b-933c-990ff04faf59
@@ -65,6 +97,14 @@ objectClass: organizationalPerson
 objectClass: inetOrgPerson
 objectClass: pf-connected-identities
 sn: Watts
+c: au
+st: Victoria
+l: Melbourne
+postalCode: 3000
+description: 1985-03-29
+mail: crn4@fakemail.com
+streetAddress: 101 Collins St
+mobile: 0400333222
 cn: ewatts
 givenName: Emily
 uid: CRN4
@@ -80,6 +120,13 @@ objectClass: organizationalPerson
 objectClass: inetOrgPerson
 objectClass: pf-connected-identities
 sn: Jones
+c: au
+st: Victoria
+l: Melbourne
+postalCode: 3000
+mobile: 0400333222
+streetAddress: 101 Collins St
+description: 1985-03-29
 cn: tjones
 givenName: Tom
 uid: CRN5
