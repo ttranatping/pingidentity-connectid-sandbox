@@ -4,8 +4,6 @@
 
         <con:item name="TLS_DHE_RSA_WITH_AES_128_GCM_SHA256"/>
         <con:item name="TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"/>
-        <con:item name="TLS_DHE_RSA_WITH_AES_256_GCM_SHA384"/>
-        <con:item name="TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"/>
 
     </con:map>
 </con:config>
