@@ -109,6 +109,13 @@
                     "stringValue": "true",
                     "id": "require-nbf",
                     "type": "STRING"
+                },
+                {
+                    "listValue": [
+                        "scope"
+                    ],
+                    "id": "other-required-claims",
+                    "type": "LIST"
                 }
             ],
             "resourceType": "/configStore"
