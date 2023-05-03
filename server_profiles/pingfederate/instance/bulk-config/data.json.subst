@@ -301,8 +301,8 @@
         {
             "operationType": "SAVE",
             "items": [{
-                "password": "${keyPairs_sslServer_items_wxom4n4v8ayu7yx47eqbj8bl0_wxom4n4v8ayu7yx47eqbj8bl0_password}",
-                "fileData": "${keyPairs_sslServer_items_wxom4n4v8ayu7yx47eqbj8bl0_wxom4n4v8ayu7yx47eqbj8bl0_fileData}",
+                "password": "${SSL_SERVER_CERT_P12_PASSWORD}",
+                "fileData": "${SSL_SERVER_CERT_P12_B64}",
                 "format": "PKCS12",
                 "id": "wxom4n4v8ayu7yx47eqbj8bl0"
             }],
