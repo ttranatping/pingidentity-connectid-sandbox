@@ -91,6 +91,11 @@
                     "type": "STRING"
                 },
                 {
+                    "listValue": ["scope"],
+                    "id": "other-required-claims",
+                    "type": "LIST"
+                },
+                {
                     "stringValue": "true",
                     "id": "require-aud",
                     "type": "STRING"
@@ -109,13 +114,6 @@
                     "stringValue": "true",
                     "id": "require-nbf",
                     "type": "STRING"
-                },
-                {
-                    "listValue": [
-                        "scope"
-                    ],
-                    "id": "other-required-claims",
-                    "type": "LIST"
                 }
             ],
             "resourceType": "/configStore"
@@ -288,7 +286,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://d91d5766e2c9:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://a9059c6cccd0:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -594,7 +592,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -698,8 +702,8 @@
                 "pingfederate",
                 "host.docker.internal",
                 "sso.${BASE_HOSTNAME}",
-                "bank-01.${BASE_HOSTNAME}",
-                "mtls-bank-01.${BASE_HOSTNAME}"
+                "${IDP_HOSTNAME}",
+                "${MTLS_IDP_HOSTNAME}"
             ]}],
             "resourceType": "/virtualHostNames"
         },

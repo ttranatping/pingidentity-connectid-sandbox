@@ -18,8 +18,13 @@
       "apply-env-file": false
     },
     {
-      "search": "data-holder.local",
-      "replace": "${BASE_HOSTNAME}",
+      "search": "mtls-bank-01.pingapac.com",
+      "replace": "${MTLS_IDP_HOSTNAME}",
+      "apply-env-file": false
+    },
+    {
+      "search": "bank-01.pingapac.com",
+      "replace": "${IDP_HOSTNAME}",
       "apply-env-file": false
     },
     {
