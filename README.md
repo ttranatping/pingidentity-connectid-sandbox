@@ -35,8 +35,8 @@ git clone \
     127.0.0.1 bank-01.pingapac.com
     127.0.0.1 mtls-bank-01.pingapac.com
     ```
-!!! Note
-    You should use your own hostnames and have that reflected in config.env (next step).
+    !!! Note
+      You should use your own hostnames and have that reflected in config.env (next step).
 
 1. Configure /path/to/pingidentity-connectid-sandbox/docker-compose/config.env, in particular, the following fields to reflect your desired hostnames:
 
@@ -57,8 +57,8 @@ git clone \
     - server_profiles/pingdatasync/certificates/transport.key
     - server_profiles/pingdatasync/certificates/transport.pem
 
-!!! Note
-    The issuer-ca.pem and root-ca.pem files are for the ConnectID sandbox environment. These may need to be changed when connecting to different ConnectID instances.
+    !!! Note
+      The issuer-ca.pem and root-ca.pem files are for the ConnectID sandbox environment. These may need to be changed when connecting to different ConnectID instances.
 
 1. Navigate to the docker-compose folder:
 
@@ -110,5 +110,5 @@ Testing Steps:
 
 1. Log in with crn0/password and complete the request
 
-!!! Note
-    The Ping Identity ConnectID Sandbox does not implement the required CX flows of ConnectID.
+   !!! Note
+     The Ping Identity ConnectID Sandbox does not implement the required CX flows of ConnectID.
