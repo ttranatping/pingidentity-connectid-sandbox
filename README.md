@@ -40,22 +40,22 @@ git clone \
 
 1. Configure /path/to/pingidentity-connectid-sandbox/docker-compose/config.env, in particular, the following fields to reflect your desired hostnames:
 
-  - BASE_HOSTNAME
-  - IDP_HOSTNAME
-  - MTLS_IDP_HOSTNAME
+    - BASE_HOSTNAME
+    - IDP_HOSTNAME
+    - MTLS_IDP_HOSTNAME
 
 1. Instantiate /path/to/pingidentity-connectid-sandbox/docker-compose/sensitive-config-template.env to /path/to/pingidentity-connectid-sandbox/docker-compose/sensitive-config.env, and configure:
 
-  - PING_IDENTITY_ACCEPT_EULA: YES/NO
-  - PING_IDENTITY_DEVOPS_USER: Your devops user account
-  - PING_IDENTITY_DEVOPS_KEY: Your devops user password
-  - SSL_SERVER_CERT_P12_B64: Base64 encoded PKCS12 file containing the SSL certificate matching your hostnames.
-  - SSL_SERVER_CERT_P12_PASSWORD: Password of PKCS12 keystore.
+    - PING_IDENTITY_ACCEPT_EULA: YES/NO
+    - PING_IDENTITY_DEVOPS_USER: Your devops user account
+    - PING_IDENTITY_DEVOPS_KEY: Your devops user password
+    - SSL_SERVER_CERT_P12_B64: Base64 encoded PKCS12 file containing the SSL certificate matching your hostnames.
+    - SSL_SERVER_CERT_P12_PASSWORD: Password of PKCS12 keystore.
 
 1. Obtain transport key and certificate from the ConnectID Sandbox register, and store them under:
 
-  - server_profiles/pingdatasync/certificates/transport.key
-  - server_profiles/pingdatasync/certificates/transport.pem
+    - server_profiles/pingdatasync/certificates/transport.key
+    - server_profiles/pingdatasync/certificates/transport.pem
 
 !!! Note
     The issuer-ca.pem and root-ca.pem files are for the ConnectID sandbox environment. These may need to be changed when connecting to different ConnectID instances.
@@ -103,8 +103,8 @@ Testing Steps:
 
 1. Customise the request:
 
-  - The Sandbox supports the standard claims, as well as Extended Claim over18
-  - Deselect "Show only certified IDPs" if your IDP isn't certified.
+    - The Sandbox supports the standard claims, as well as Extended Claim over18
+    - Deselect "Show only certified IDPs" if your IDP isn't certified.
 
 1. Click Verify with ConnectID. This will redirect you to the Ping Identity ConnectID Sandbox instance.
 
