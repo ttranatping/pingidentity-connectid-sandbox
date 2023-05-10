@@ -83,19 +83,14 @@ git clone \
 
 ### Testing guide
 
-Follow the ConnectID Relying Party User Guide - Getting Started guide to stand up a sample application.
+Follow the ConnectID Relying Party User Guide with the additional steps below.
 
-Considerations:
+Update sample Relying Party application port to 4443 prior to starting the application:
+- Update src/config.js:
+  - application_redirect_uri: 'https://tpp.localhost:4443/cb'
+  - server_port: '4443'
+  - redirect_uris: ['https://tpp.localhost:4443/cb']
 
-- Port conflict issue with sample RP application:
-  - If running the application on the same server as the IdP, you may run into port conflict issues.
-  - You can change the port to something available (like :4443):
-    - src/config.js (server_port)
-  - The RP client that comes with the ConnectID Sandbox does not allow for other ports, so you'll need to register an RP in the Sandbox with:
-    - redirect_uri: https://tpp.localhost:4443/cb
-    - You'll also need to update the sample RP config:
-      - src/config.js (details under client, such as client_id, organisation_id, redirect_uris, jwks_uri)
-      - certs/* files will need to be updated to suit your RP
 
 Testing Steps:
 
