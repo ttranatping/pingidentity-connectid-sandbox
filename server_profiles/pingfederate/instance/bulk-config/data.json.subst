@@ -286,7 +286,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://a9059c6cccd0:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://24814310a15d:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -536,10 +536,10 @@
             "operationType": "SAVE",
             "items": [{
                 "federationInfo": {
-                    "saml2EntityId": "https://sso.${BASE_HOSTNAME}",
+                    "saml2EntityId": "https://${IDP_HOSTNAME}",
                     "saml1xIssuerId": "",
                     "wsfedRealm": "",
-                    "baseUrl": "https://sso-local.${BASE_HOSTNAME}",
+                    "baseUrl": "https://${IDP_HOSTNAME}",
                     "saml1xSourceId": ""
                 },
                 "contactInfo": {},

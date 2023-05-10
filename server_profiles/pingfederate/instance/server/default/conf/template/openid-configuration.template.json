@@ -112,6 +112,7 @@ Keys available for use with the $info variable:
   "jwks_uri": "$info.get('jwks_uri')",
   "registration_endpoint": "$info.get('registration_endpoint')",
   "mtls_endpoint_aliases": {
+    "pushed_authorization_request_endpoint": "$info.get('pushed_authorization_request_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
     "token_endpoint": "$info.get('token_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
     "revocation_endpoint": "$info.get('revocation_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
   #if($info.get('type') == "openid-connect")
