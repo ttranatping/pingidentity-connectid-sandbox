@@ -48,6 +48,21 @@
         <!-- Preserve messages in a local file -->
         <!-- ================================= -->
 
+        <!-- Main log : A size based file rolling appender -->                    
+        <RollingFile name="CONNECTID_FILE" fileName="${sys:pf.log.dir}/connectid_events.log"
+                     filePattern="${sys:pf.log.dir}/connectid_events.log.%i" ignoreExceptions="false">                                
+            <PatternLayout>                                                                           
+                <!-- Uncomment this if you want to use UTF-8 encoding instead                         
+                    of system's default encoding.                                                                                                                       
+                <charset>UTF-8</charset> -->                                                          
+                <pattern>%d %m%n</pattern>                                   
+            </PatternLayout>                                                                          
+            <Policies>                                                                                
+                <SizeBasedTriggeringPolicy size="10000 KB" />                                         
+            </Policies>                                                                                                  
+            <DefaultRolloverStrategy max="2" />                              
+        </RollingFile>   
+
         <!-- Main log : A size based file rolling appender -->
         <RollingFile name="FILE" fileName="${sys:pf.log.dir}/server.log"
                      filePattern="${sys:pf.log.dir}/server.log.%i" ignoreExceptions="false">
@@ -1260,6 +1275,9 @@
         <Logger name="com.pingidentity.common.util.ErrorHandler" level="INFO" additivity="false">
             <AppenderRef ref="CONSOLE" />
             <AppenderRef ref="FILE" />
+        </Logger>
+        <Logger name="com.pingidentity.ps.connectid.pf.utils.EVENTLOGGER" level="INFO">
+            <AppenderRef ref="CONNECTID_FILE" />
         </Logger>
         <Logger name="com.pingidentity.appserver.jetty" level="INFO" />
         <Logger name="org.apache" level="INFO" />
