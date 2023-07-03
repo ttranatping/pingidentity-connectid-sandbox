@@ -286,7 +286,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://a7daaa4cef97:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://3a4741937001:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -592,7 +592,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -1777,10 +1783,16 @@
                         }
                     ],
                     "issuanceCriteria": {
-                        "expressionCriteria": [{
-                            "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://${IDP_HOSTNAME}\", \"org123\", null)",
-                            "errorResult": "ERROR_EVENT_LOGGING"
-                        }],
+                        "expressionCriteria": [
+                            {
+                                "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://${IDP_HOSTNAME}\", \"org123\", null)",
+                                "errorResult": "ERROR_EVENT_LOGGING"
+                            },
+                            {
+                                "expression": "#requestObject = #this.get(\"context.HttpRequest\").getObjectValue(),\n\n#isUserInfo = (#requestObject.getRequestURI().endsWith(\"userinfo.openid\")),\n#req = #this.get(\"context.HttpRequest\").getObjectValue(),\n#certs = #req.getAttribute(\"javax.servlet.request.X509Certificate\"),\n#certThumbprint = (#certs == null) ? null : \n@java.util.Base64@getUrlEncoder().withoutPadding().encodeToString(\n@java.security.MessageDigest@getInstance(\"SHA-256\").digest(#certs[0].getEncoded())),\n\n#accessTokenCertThumbprint = #this.get(\"cnf\").getObjectValue().get(\"x5t#S256\"),\n(!#isUserInfo || (#certThumbprint != null && !#certThumbprint.isEmpty() && #certThumbprint.equals(#accessTokenCertThumbprint)))",
+                                "errorResult": "INVALID_CERTIFICATE"
+                            }
+                        ],
                         "conditionalCriteria": []
                     }
                 },
