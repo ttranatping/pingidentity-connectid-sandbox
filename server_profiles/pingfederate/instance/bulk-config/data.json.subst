@@ -286,7 +286,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://3a4741937001:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://902f36a10ec9:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -592,13 +592,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -1789,7 +1783,7 @@
                                 "errorResult": "ERROR_EVENT_LOGGING"
                             },
                             {
-                                "expression": "#requestObject = #this.get(\"context.HttpRequest\").getObjectValue(),\n\n#isUserInfo = (#requestObject.getRequestURI().endsWith(\"userinfo.openid\")),\n#req = #this.get(\"context.HttpRequest\").getObjectValue(),\n#certs = #req.getAttribute(\"javax.servlet.request.X509Certificate\"),\n#certThumbprint = (#certs == null) ? null : \n@java.util.Base64@getUrlEncoder().withoutPadding().encodeToString(\n@java.security.MessageDigest@getInstance(\"SHA-256\").digest(#certs[0].getEncoded())),\n\n#accessTokenCertThumbprint = #this.get(\"cnf\").getObjectValue().get(\"x5t#S256\"),\n(!#isUserInfo || (#certThumbprint != null && !#certThumbprint.isEmpty() && #certThumbprint.equals(#accessTokenCertThumbprint)))",
+                                "expression": "#requestObject = #this.get(\"context.HttpRequest\").getObjectValue(),\n\n#isUserInfo = (#requestObject.getRequestURI().endsWith(\"userinfo.openid\")),\n#certs = #requestObject.getAttribute(\"javax.servlet.request.X509Certificate\"),\n#certThumbprint = (#certs == null) ? null : \n@java.util.Base64@getUrlEncoder().withoutPadding().encodeToString(\n@java.security.MessageDigest@getInstance(\"SHA-256\").digest(#certs[0].getEncoded())),\n\n#accessTokenCNF = #this.get(\"cnf\"),\n\n#accessTokenCertThumbprint = (\n#accessTokenCNF != null)?#this.get(\"cnf\").getObjectValue().get(\"x5t#S256\"):null,\n\n(!#isUserInfo || #accessTokenCNF == null || (#certThumbprint != null && !#certThumbprint.isEmpty() && #certThumbprint.equals(#accessTokenCertThumbprint)))",
                                 "errorResult": "INVALID_CERTIFICATE"
                             }
                         ],
