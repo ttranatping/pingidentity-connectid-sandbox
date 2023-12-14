@@ -11,6 +11,7 @@ void processVerifiedClaims(org.json.simple.JSONObject baseObj)
   if(claims.containsKey("over18"))
   {
     claims.put("over18", true);
+    claims.put("indigenous", true);
   }
 }
 %>
