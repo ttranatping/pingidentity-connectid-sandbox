@@ -1,0 +1,118 @@
+{
+  "sort-arrays":[
+	"roles","scopes"
+  ],
+  "config-aliases":[
+    {
+      "config-names":[
+        "administrativeAccounts_items_Administrator_password"
+      ],
+      "replace-name": "PING_IDENTITY_PASSWORD",
+      "is-apply-envfile": false
+    },
+    {
+      "config-names":[
+        "keyPairs_sslServer_items_wxom4n4v8ayu7yx47eqbj8bl0_wxom4n4v8ayu7yx47eqbj8bl0_fileData"
+      ],
+      "replace-name": "SSL_SERVER_CERT_P12_B64",
+      "is-apply-envfile": false
+    },
+    {
+      "config-names":[
+        "keyPairs_sslServer_items_wxom4n4v8ayu7yx47eqbj8bl0_wxom4n4v8ayu7yx47eqbj8bl0_password"
+      ],
+      "replace-name": "SSL_SERVER_CERT_P12_PASSWORD",
+      "is-apply-envfile": false
+    }
+  ],
+  "search-replace":[
+    {
+      "search": "dc=data-holder,dc=com",
+      "replace": "${USER_BASE_DN}",
+      "apply-env-file": false
+    },
+    {
+      "search": "mtls-wuna-idp.pingapac.com",
+      "replace": "${MTLS_IDP_HOSTNAME}",
+      "apply-env-file": false
+    },
+    {
+      "search": "wuna-idp.pingapac.com",
+      "replace": "${IDP_HOSTNAME}",
+      "apply-env-file": false
+    },
+    {
+      "search": "pingapac.com",
+      "replace": "${BASE_HOSTNAME}",
+      "apply-env-file": false
+    }
+  ],
+  "remove-config":[
+  	{
+  	  "key": "id",
+	  "value": "ProvisionerDS"
+  	}
+  ],
+  "expose-parameters":[
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=Issuer"
+      ]
+    },
+    {
+      "parameter-name": "encryptedCredential",
+      "replace-name": "credential",
+      "unique-identifiers": [
+          "id"
+      ]
+    },
+    {
+      "parameter-name": "fileData",
+      "unique-identifiers": [
+          "id"
+      ]
+    },
+    {
+      "parameter-name": "encryptedValue",
+      "replace-name": "value",
+      "unique-identifiers": [
+          "name"
+      ]
+    },
+    {
+      "parameter-name": "encryptedPassword",
+      "replace-name": "password",
+      "unique-identifiers": [
+          "id",
+          "username"
+      ]
+    },
+    {
+      "parameter-name": "encryptedKeyData",
+      "replace-name": "keyData",
+      "unique-identifiers": [
+          "id"
+      ]
+    },
+    {
+      "parameter-name": "encryptedSecret",
+      "replace-name": "secret",
+      "unique-identifiers": [
+          "clientId"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=PingID Properties"
+      ]
+    },
+    {
+      "parameter-name": "value",
+      "unique-identifiers": [
+          "name=PingID SDK Properties"
+      ]
+    }
+  ]
+}

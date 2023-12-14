@@ -99,6 +99,7 @@ Keys available for use with the $info variable:
 *#       
 
 #set($mtlsIssuer=$info.get('issuer').replace('https://','https://mtls-'))
+#set($mtlsIssuerPA=$info.get('issuer').replace('https://','https://mtls-') + ":3000") 
 
 {
   "issuer": "$info.get('issuer')",
@@ -106,19 +107,19 @@ Keys available for use with the $info variable:
   "token_endpoint": "$info.get('token_endpoint')",
   "revocation_endpoint": "$info.get('revocation_endpoint')",
 #if($info.get('type') == "openid-connect")
-  "userinfo_endpoint": "$info.get('userinfo_endpoint')",
+  "userinfo_endpoint": "$info.get('userinfo_endpoint').replace($info.get('issuer'),$mtlsIssuerPA)",
 #end                                  
   "introspection_endpoint": "$info.get('introspection_endpoint')",
   "jwks_uri": "$info.get('jwks_uri')",
   "registration_endpoint": "$info.get('registration_endpoint')",
   "mtls_endpoint_aliases": {
-    "pushed_authorization_request_endpoint": "$info.get('pushed_authorization_request_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
-    "token_endpoint": "$info.get('token_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
+    "token_endpoint": "$info.get('token_endpoint').replace($info.get('issuer'), $mtlsIssuerPA)",
     "revocation_endpoint": "$info.get('revocation_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
   #if($info.get('type') == "openid-connect")
-    "userinfo_endpoint": "$info.get('userinfo_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
+    "userinfo_endpoint": "$info.get('userinfo_endpoint').replace($info.get('issuer'), $mtlsIssuerPA)",
   #end                                  
     "introspection_endpoint": "$info.get('introspection_endpoint').replace($info.get('issuer'), $mtlsIssuer)",
+"pushed_authorization_request_endpoint": "$info.get('pushed_authorization_request_endpoint').replace($info.get('issuer'), $mtlsIssuerPA)",
     "registration_endpoint": "$info.get('registration_endpoint').replace($info.get('issuer'), $mtlsIssuer)"
   },
   "ping_revoked_sris_endpoint": "$info.get('ping_revoked_sris_endpoint')",

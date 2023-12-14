@@ -43,7 +43,7 @@ dsconfig create-sync-class \
     --set modifies-as-creates:true \
     --set creates-as-modifies:true
 
-dsconfig set-log-publisher-prop \
-    --publisher-name "Server SDK Extension Debug Logger" \
-    --set enabled:true \
-    --set default-debug-level:all
+#dsconfig set-log-publisher-prop \
+#    --publisher-name "Server SDK Extension Debug Logger" \
+#    --set enabled:true \
+#    --set default-debug-level:all

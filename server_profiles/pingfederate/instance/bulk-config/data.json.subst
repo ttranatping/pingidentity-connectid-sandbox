@@ -1,5 +1,5 @@
 {
-    "metadata": {"pfVersion": "11.2.3.0"},
+    "metadata": {"pfVersion": "11.2.0.8"},
     "operations": [
         {
             "operationType": "SAVE",
@@ -286,7 +286,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://902f36a10ec9:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://39a478b6c8eb:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -536,10 +536,10 @@
             "operationType": "SAVE",
             "items": [{
                 "federationInfo": {
-                    "saml2EntityId": "https://${IDP_HOSTNAME}",
+                    "saml2EntityId": "https://wuna-idp.${BASE_HOSTNAME}",
                     "saml1xIssuerId": "",
                     "wsfedRealm": "",
-                    "baseUrl": "https://${IDP_HOSTNAME}",
+                    "baseUrl": "https://wuna-idp.${BASE_HOSTNAME}",
                     "saml1xSourceId": ""
                 },
                 "contactInfo": {},
@@ -592,7 +592,13 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{"synchronizationFrequency": 60}],
+            "items": [{
+                "dataStoreRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
+                    "id": ""
+                },
+                "synchronizationFrequency": 60
+            }],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -696,8 +702,8 @@
                 "pingfederate",
                 "host.docker.internal",
                 "sso.${BASE_HOSTNAME}",
-                "${IDP_HOSTNAME}",
-                "${MTLS_IDP_HOSTNAME}"
+                "wuna-idp.${BASE_HOSTNAME}",
+                "mtls-wuna-idp.${BASE_HOSTNAME}"
             ]}],
             "resourceType": "/virtualHostNames"
         },
@@ -1080,6 +1086,119 @@
         {
             "operationType": "SAVE",
             "items": [
+                {
+                    "attributeMapping": {
+                        "attributeContractFulfillment": {
+                            "decision": {
+                                "source": {"type": "ADAPTER"},
+                                "value": "decision"
+                            },
+                            "subject": {
+                                "source": {"type": "ADAPTER"},
+                                "value": "subject"
+                            }
+                        },
+                        "attributeSources": [],
+                        "issuanceCriteria": {"conditionalCriteria": []}
+                    },
+                    "configuration": {
+                        "tables": [],
+                        "fields": [
+                            {
+                                "name": "Authentication Endpoint",
+                                "value": "https://wuna-consent.${BASE_HOSTNAME}:7879/init"
+                            },
+                            {
+                                "name": "User Name",
+                                "value": "consentappuser"
+                            },
+                            {
+                                "name": "Pass Phrase",
+                                "value": "${idp_adapters_items_consentAgentlessAdapter_configuration_fields_Pass_Phrase_value}"
+                            },
+                            {
+                                "name": "Allowed Subject DN",
+                                "value": ""
+                            },
+                            {
+                                "name": "Allowed Issuer DN",
+                                "value": ""
+                            },
+                            {
+                                "name": "Logout Service Endpoint",
+                                "value": ""
+                            },
+                            {
+                                "name": "Logout Service Mode",
+                                "value": "NONE"
+                            },
+                            {
+                                "name": "Prefix Referenced Attributes",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Ignore Untracked HTTP Parameters",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Send Request Parameters",
+                                "value": "ALL"
+                            },
+                            {
+                                "name": "Transport Mode",
+                                "value": "2"
+                            },
+                            {
+                                "name": "Reference Duration",
+                                "value": "3"
+                            },
+                            {
+                                "name": "Reference Length",
+                                "value": "30"
+                            },
+                            {
+                                "name": "Require SSL/TLS",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Outgoing Attribute Format",
+                                "value": "JSON"
+                            },
+                            {
+                                "name": "Incoming Attribute Format",
+                                "value": "JSON"
+                            },
+                            {
+                                "name": "Skip Host Name Validation ",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Relax Password Requirements",
+                                "value": "false"
+                            }
+                        ]
+                    },
+                    "name": "Consent Application",
+                    "id": "consentAgentlessAdapter",
+                    "pluginDescriptorRef": {
+                        "location": "https://localhost:9999/pf-admin-api/v1/idp/adapters/descriptors/com.pingidentity.pf.adapters.referenceid.IdpBackchannelReferenceAuthnAdapter",
+                        "id": "com.pingidentity.pf.adapters.referenceid.IdpBackchannelReferenceAuthnAdapter"
+                    },
+                    "attributeContract": {
+                        "maskOgnlValues": false,
+                        "uniqueUserKeyAttribute": "subject",
+                        "coreAttributes": [{
+                            "masked": false,
+                            "name": "subject",
+                            "pseudonym": true
+                        }],
+                        "extendedAttributes": [{
+                            "masked": false,
+                            "name": "decision",
+                            "pseudonym": false
+                        }]
+                    }
+                },
                 {
                     "attributeMapping": {
                         "attributeContractFulfillment": {
@@ -1779,7 +1898,7 @@
                     "issuanceCriteria": {
                         "expressionCriteria": [
                             {
-                                "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://${IDP_HOSTNAME}\", \"org123\", null)",
+                                "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://wuna-idp.${BASE_HOSTNAME}\", \"org123\", null)",
                                 "errorResult": "ERROR_EVENT_LOGGING"
                             },
                             {
@@ -2057,52 +2176,79 @@
                                         "context": "Fail",
                                         "type": "DONE"
                                     }},
-                                    {"action": {
-                                        "attributeMapping": {
-                                            "attributeContractFulfillment": {
-                                                "claims_idtoken": {
-                                                    "source": {
-                                                        "id": "fapiRequestValidationAdapter",
-                                                        "type": "ADAPTER"
+                                    {
+                                        "children": [
+                                            {"action": {
+                                                "context": "Fail",
+                                                "type": "DONE"
+                                            }},
+                                            {"action": {
+                                                "attributeMapping": {
+                                                    "attributeContractFulfillment": {
+                                                        "claims_idtoken": {
+                                                            "source": {
+                                                                "id": "fapiRequestValidationAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "claims_idtoken"
+                                                        },
+                                                        "subject": {
+                                                            "source": {
+                                                                "id": "htmlFormAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "username"
+                                                        },
+                                                        "claims_parameter_b64": {
+                                                            "source": {
+                                                                "id": "fapiRequestValidationAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "claims_parameter_b64"
+                                                        },
+                                                        "claims_userinfo": {
+                                                            "source": {
+                                                                "id": "fapiRequestValidationAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "claims_userinfo"
+                                                        },
+                                                        "txn": {
+                                                            "source": {"type": "EXPRESSION"},
+                                                            "value": "@java.util.UUID@randomUUID().toString()"
+                                                        }
                                                     },
-                                                    "value": "claims_idtoken"
+                                                    "attributeSources": [],
+                                                    "issuanceCriteria": {"conditionalCriteria": []}
                                                 },
-                                                "subject": {
-                                                    "source": {
-                                                        "id": "htmlFormAdapter",
-                                                        "type": "ADAPTER"
-                                                    },
-                                                    "value": "username"
+                                                "authenticationPolicyContractRef": {
+                                                    "location": "https://localhost:9999/pf-admin-api/v1/authenticationPolicyContracts/dm5v8wW22rqcwWEY",
+                                                    "id": "dm5v8wW22rqcwWEY"
                                                 },
-                                                "claims_parameter_b64": {
-                                                    "source": {
-                                                        "id": "fapiRequestValidationAdapter",
-                                                        "type": "ADAPTER"
-                                                    },
-                                                    "value": "claims_parameter_b64"
-                                                },
-                                                "claims_userinfo": {
-                                                    "source": {
-                                                        "id": "fapiRequestValidationAdapter",
-                                                        "type": "ADAPTER"
-                                                    },
-                                                    "value": "claims_userinfo"
-                                                },
-                                                "txn": {
-                                                    "source": {"type": "EXPRESSION"},
-                                                    "value": "@java.util.UUID@randomUUID().toString()"
+                                                "context": "Success",
+                                                "type": "APC_MAPPING"
+                                            }}
+                                        ],
+                                        "action": {
+                                            "authenticationSource": {
+                                                "type": "IDP_ADAPTER",
+                                                "sourceRef": {
+                                                    "location": "https://localhost:9999/pf-admin-api/v1/idp/adapters/consentAgentlessAdapter",
+                                                    "id": "consentAgentlessAdapter"
                                                 }
                                             },
-                                            "attributeSources": [],
-                                            "issuanceCriteria": {"conditionalCriteria": []}
-                                        },
-                                        "authenticationPolicyContractRef": {
-                                            "location": "https://localhost:9999/pf-admin-api/v1/authenticationPolicyContracts/dm5v8wW22rqcwWEY",
-                                            "id": "dm5v8wW22rqcwWEY"
-                                        },
-                                        "context": "Success",
-                                        "type": "APC_MAPPING"
-                                    }}
+                                            "context": "Success",
+                                            "inputUserIdMapping": {
+                                                "source": {
+                                                    "id": "htmlFormAdapter",
+                                                    "type": "ADAPTER"
+                                                },
+                                                "value": "username"
+                                            },
+                                            "userIdAuthenticated": true,
+                                            "type": "AUTHN_SOURCE"
+                                        }
+                                    }
                                 ],
                                 "action": {
                                     "authenticationSource": {
