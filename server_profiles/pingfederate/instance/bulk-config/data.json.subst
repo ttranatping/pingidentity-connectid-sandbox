@@ -750,6 +750,7 @@
                 "coreAttributes": [{"name": "subject"}],
                 "extendedAttributes": [
                     {"name": "claims_idtoken"},
+                    {"name": "requested_attributes_userinfo"},
                     {"name": "requested_attributes"},
                     {"name": "claims_userinfo"},
                     {"name": "claims_parameter_b64"},
@@ -1089,6 +1090,10 @@
                                 "source": {"type": "ADAPTER"},
                                 "value": "decision"
                             },
+                            "requested_attributes_userinfo": {
+                                "source": {"type": "ADAPTER"},
+                                "value": "requested_attributes_userinfo"
+                            },
                             "subject": {
                                 "source": {"type": "ADAPTER"},
                                 "value": "subject"
@@ -1200,6 +1205,11 @@
                             {
                                 "masked": false,
                                 "name": "decision",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
+                                "name": "requested_attributes_userinfo",
                                 "pseudonym": false
                             },
                             {
@@ -1695,7 +1705,8 @@
                         {"name": "CLAIMS_USERINFO"},
                         {"name": "CLAIMS_PARAMETER_B64"},
                         {"name": "CLAIMS_INDIGENOUS_GROUP"},
-                        {"name": "CLAIMS_REQUESTED_ATTRIBUTES"}
+                        {"name": "CLAIMS_REQUESTED_ATTRIBUTES"},
+                        {"name": "CLAIMS_REQUESTED_ATTRIBUTES_USERINFO"}
                     ]
                 },
                 "scopeGroups": [],
@@ -1809,6 +1820,10 @@
                     "CLAIMS_REQUESTED_ATTRIBUTES": {
                         "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
                         "value": "requested_attributes"
+                    },
+                    "CLAIMS_REQUESTED_ATTRIBUTES_USERINFO": {
+                        "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                        "value": "requested_attributes_userinfo"
                     }
                 },
                 "id": "dm5v8wW22rqcwWEY",
@@ -2094,6 +2109,13 @@
                                                                 "type": "ADAPTER"
                                                             },
                                                             "value": "claims_idtoken"
+                                                        },
+                                                        "requested_attributes_userinfo": {
+                                                            "source": {
+                                                                "id": "consentAgentlessAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "requested_attributes_userinfo"
                                                         },
                                                         "subject": {
                                                             "source": {
