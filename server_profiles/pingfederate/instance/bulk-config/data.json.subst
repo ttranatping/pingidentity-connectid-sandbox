@@ -286,7 +286,7 @@
             "operationType": "SAVE",
             "items": [{
                 "accepted": true,
-                "licenseAgreementUrl": "https://39a478b6c8eb:9999/pf-admin-api/license-agreement"
+                "licenseAgreementUrl": "https://326ce1975d65:9999/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
         },
@@ -592,13 +592,7 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "dataStoreRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/dataStores",
-                    "id": ""
-                },
-                "synchronizationFrequency": 60
-            }],
+            "items": [{"synchronizationFrequency": 60}],
             "resourceType": "/serverSettings/outboundProvisioning"
         },
         {
@@ -756,8 +750,10 @@
                 "coreAttributes": [{"name": "subject"}],
                 "extendedAttributes": [
                     {"name": "claims_idtoken"},
+                    {"name": "requested_attributes"},
                     {"name": "claims_userinfo"},
                     {"name": "claims_parameter_b64"},
+                    {"name": "indigenous_group"},
                     {"name": "txn"}
                 ]
             }],
@@ -1096,6 +1092,14 @@
                             "subject": {
                                 "source": {"type": "ADAPTER"},
                                 "value": "subject"
+                            },
+                            "requested_attributes": {
+                                "source": {"type": "ADAPTER"},
+                                "value": "requested_attributes"
+                            },
+                            "indigenous_group": {
+                                "source": {"type": "ADAPTER"},
+                                "value": "indigenous_group"
                             }
                         },
                         "attributeSources": [],
@@ -1192,11 +1196,23 @@
                             "name": "subject",
                             "pseudonym": true
                         }],
-                        "extendedAttributes": [{
-                            "masked": false,
-                            "name": "decision",
-                            "pseudonym": false
-                        }]
+                        "extendedAttributes": [
+                            {
+                                "masked": false,
+                                "name": "decision",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
+                                "name": "requested_attributes",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
+                                "name": "indigenous_group",
+                                "pseudonym": false
+                            }
+                        ]
                     }
                 },
                 {
@@ -1255,12 +1271,32 @@
                             },
                             {
                                 "masked": false,
+                                "name": "rp_client_id",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
+                                "name": "rp_client_description",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
                                 "name": "claims_idtoken",
                                 "pseudonym": false
                             },
                             {
                                 "masked": false,
+                                "name": "rp_client_logo_uri",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
                                 "name": "claims_userinfo",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
+                                "name": "rp_client_name",
                                 "pseudonym": false
                             },
                             {
@@ -1657,7 +1693,9 @@
                     "extendedAttributes": [
                         {"name": "CLAIMS_IDTOKEN"},
                         {"name": "CLAIMS_USERINFO"},
-                        {"name": "CLAIMS_PARAMETER_B64"}
+                        {"name": "CLAIMS_PARAMETER_B64"},
+                        {"name": "CLAIMS_INDIGENOUS_GROUP"},
+                        {"name": "CLAIMS_REQUESTED_ATTRIBUTES"}
                     ]
                 },
                 "scopeGroups": [],
@@ -1748,6 +1786,10 @@
                         "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
                         "value": "claims_idtoken"
                     },
+                    "CLAIMS_INDIGENOUS_GROUP": {
+                        "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                        "value": "indigenous_group"
+                    },
                     "USER_NAME": {
                         "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
                         "value": "subject"
@@ -1763,6 +1805,10 @@
                     "CLAIMS_PARAMETER_B64": {
                         "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
                         "value": "claims_parameter_b64"
+                    },
+                    "CLAIMS_REQUESTED_ATTRIBUTES": {
+                        "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                        "value": "requested_attributes"
                     }
                 },
                 "id": "dm5v8wW22rqcwWEY",
@@ -1787,15 +1833,7 @@
                         },
                         "verified_claims": {
                             "source": {"type": "EXPRESSION"},
-                            "value": "#parser = new org.json.simple.parser.JSONParser(),\n#decoder = @java.util.Base64@getDecoder(),\n\n#returnValue = null,\n\n#isUserInfo = (#this.get(\"context.HttpRequest\").getObjectValue().getRequestURI().endsWith(\"userinfo.openid\")),\n\n#claimsParameter = #this.get(\"ds.rest.response\"),\n\n#claimsParameterDecoded = (#claimsParameter != null)? \n  new java.lang.String(#decoder.decode(@java.net.URLDecoder@decode(#claimsParameter.toString()))):\"{}\",\n\n#claimsParameterJSON = #parser.parse(#claimsParameterDecoded),\n\n#requestedClaims = (#isUserInfo)?(#claimsParameter != null? #claimsParameterJSON.get(\"userinfo\"):null):(#claimsParameter != null? #claimsParameterJSON.get(\"id_token\"):null),\n\n#verifiedClaims = (#requestedClaims != null && #requestedClaims.containsKey(\"verified_claims\"))?#requestedClaims.get(\"verified_claims\"):null,\n\n#verifiedClaims"
-                        },
-                        "address.locality": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.l\")"
-                        },
-                        "birthdate": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"birthdate\", \"profile\", \"ds.ldap.description\")"
+                            "value": "#topLevel = new org.json.simple.JSONObject(),\n\n#claimsObject = new org.json.simple.JSONObject(),\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(\"indigenous_group\")?#claimsObject.put(\"indigenous_group\", #this.get(\"persistentgrant.CLAIMS_INDIGENOUS_GROUP\")):null,\n\n#topLevel.put(\"claims\", #claimsObject),\n\n#jsonParser = new org.json.simple.parser.JSONParser(),\n#topLevel.put(\"verification\", #jsonParser.parse(\"{\\\"trust_framework\\\": \\\"au_connectid\\\"}\")),\n\n#topLevel"
                         },
                         "txn": {
                             "source": {"type": "EXPRESSION"},
@@ -1803,98 +1841,40 @@
                         },
                         "given_name": {
                             "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
+                            "value": "#requestedAttribute = \"given_name\",\n#dsAttribute = \"ds.ldap.givenName\",\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(#requestedAttribute)?#this.get(#dsAttribute):null"
                         },
-                        "middle_name": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"middle_name\", \"profile\", \"ds.ldap.givenName\")"
-                        },
-                        "address.country": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.c\")"
-                        },
-                        "address.postal_code": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.postalCode\")"
-                        },
-                        "address.region": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.st\")"
-                        },
-                        "name": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"given_name\", \"profile\", \"ds.ldap.givenName\")"
-                        },
-                        "phone_number": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"phone_number\", \"profile\", \"ds.ldap.mobile\")"
-                        },
-                        "address.formatted": {"source": {"type": "NO_MAPPING"}},
                         "family_name": {
                             "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"family_name\", \"profile\", \"ds.ldap.sn\")"
-                        },
-                        "email": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"email\", \"email\", \"ds.ldap.mail\")"
-                        },
-                        "address.street_address": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"address\", \"address\", \"ds.ldap.street\")"
+                            "value": "#requestedAttribute = \"family_name\",\n#dsAttribute = \"ds.ldap.sn\",\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(#requestedAttribute)?#this.get(#dsAttribute):null"
                         }
                     },
-                    "attributeSources": [
-                        {
-                            "memberOfNestedGroup": false,
-                            "binaryAttributeSettings": {},
-                            "searchScope": "SUBTREE",
-                            "dataStoreRef": {
-                                "location": "https://localhost:9999/pf-admin-api/v1/dataStores/LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
-                                "id": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C"
-                            },
-                            "description": "ldap",
-                            "id": "ldap",
-                            "searchAttributes": [
-                                "Subject DN",
-                                "c",
-                                "description",
-                                "givenName",
-                                "l",
-                                "mail",
-                                "mobile",
-                                "postalCode",
-                                "sn",
-                                "st",
-                                "street"
-                            ],
-                            "type": "LDAP",
-                            "baseDn": "ou=people,${USER_BASE_DN}",
-                            "searchFilter": "uid=${sub}"
+                    "attributeSources": [{
+                        "memberOfNestedGroup": false,
+                        "binaryAttributeSettings": {},
+                        "searchScope": "SUBTREE",
+                        "dataStoreRef": {
+                            "location": "https://localhost:9999/pf-admin-api/v1/dataStores/LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                            "id": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C"
                         },
-                        {
-                            "dataStoreRef": {
-                                "location": "https://localhost:9999/pf-admin-api/v1/dataStores/Other-5BA6C3C8E8A3EB82DB53056AABFBABA9349710E7",
-                                "id": "Other-5BA6C3C8E8A3EB82DB53056AABFBABA9349710E7"
-                            },
-                            "description": "rest",
-                            "id": "rest",
-                            "filterFields": [
-                                {
-                                    "name": "Resource Path",
-                                    "value": "/ekyc/index.jsp"
-                                },
-                                {
-                                    "name": "Authorization Header",
-                                    "value": ""
-                                },
-                                {
-                                    "name": "Body",
-                                    "value": "{ \"request\": \"${persistentgrant.CLAIMS_PARAMETER_B64}\" }"
-                                }
-                            ],
-                            "type": "CUSTOM"
-                        }
-                    ],
+                        "description": "ldap",
+                        "id": "ldap",
+                        "searchAttributes": [
+                            "Subject DN",
+                            "c",
+                            "description",
+                            "givenName",
+                            "l",
+                            "mail",
+                            "mobile",
+                            "postalCode",
+                            "sn",
+                            "st",
+                            "street"
+                        ],
+                        "type": "LDAP",
+                        "baseDn": "ou=people,${USER_BASE_DN}",
+                        "searchFilter": "uid=${sub}"
+                    }],
                     "issuanceCriteria": {
                         "expressionCriteria": [
                             {
@@ -1911,19 +1891,8 @@
                 },
                 "name": "connectIDOIDCPolicy",
                 "scopeAttributeMappings": {"openid": {"values": [
-                    "address.country",
-                    "address.formatted",
-                    "address.locality",
-                    "address.postal_code",
-                    "address.region",
-                    "address.street_address",
-                    "birthdate",
-                    "email",
                     "family_name",
                     "given_name",
-                    "middle_name",
-                    "name",
-                    "phone_number",
                     "txn",
                     "verified_claims"
                 ]}},
@@ -1948,18 +1917,6 @@
                         },
                         {
                             "includeInUserInfo": true,
-                            "name": "address.locality",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "birthdate",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
                             "name": "txn",
                             "includeInIdToken": true,
                             "multiValued": false
@@ -1972,61 +1929,7 @@
                         },
                         {
                             "includeInUserInfo": true,
-                            "name": "middle_name",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "address.country",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "address.postal_code",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "address.region",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "name",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "phone_number",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "address.formatted",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
                             "name": "family_name",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "email",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "address.street_address",
                             "includeInIdToken": true,
                             "multiValued": false
                         }
@@ -2199,6 +2102,13 @@
                                                             },
                                                             "value": "username"
                                                         },
+                                                        "requested_attributes": {
+                                                            "source": {
+                                                                "id": "consentAgentlessAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "requested_attributes"
+                                                        },
                                                         "claims_parameter_b64": {
                                                             "source": {
                                                                 "id": "fapiRequestValidationAdapter",
@@ -2212,6 +2122,13 @@
                                                                 "type": "ADAPTER"
                                                             },
                                                             "value": "claims_userinfo"
+                                                        },
+                                                        "indigenous_group": {
+                                                            "source": {
+                                                                "id": "consentAgentlessAdapter",
+                                                                "type": "ADAPTER"
+                                                            },
+                                                            "value": "indigenous_group"
                                                         },
                                                         "txn": {
                                                             "source": {"type": "EXPRESSION"},
