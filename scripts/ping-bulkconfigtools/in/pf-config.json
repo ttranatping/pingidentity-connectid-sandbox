@@ -3,7 +3,7 @@
 	"roles","scopes"
   ],
   "config-aliases":[
-    {
+      	  {
       "config-names":[
         "administrativeAccounts_items_Administrator_password"
       ],

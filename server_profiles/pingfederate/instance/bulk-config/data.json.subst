@@ -669,19 +669,37 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "password": "${PING_IDENTITY_PASSWORD}",
-                "roles": [
-                    "ADMINISTRATOR",
-                    "CRYPTO_ADMINISTRATOR",
-                    "EXPRESSION_ADMINISTRATOR",
-                    "USER_ADMINISTRATOR"
-                ],
-                "auditor": false,
-                "description": "Initial administrator user.",
-                "active": true,
-                "username": "Administrator"
-            }],
+            "items": [
+                {
+                    "password": "${PING_IDENTITY_PASSWORD}",
+                    "roles": [
+                        "ADMINISTRATOR",
+                        "CRYPTO_ADMINISTRATOR",
+                        "EXPRESSION_ADMINISTRATOR",
+                        "USER_ADMINISTRATOR"
+                    ],
+                    "auditor": false,
+                    "description": "Initial administrator user.",
+                    "active": true,
+                    "username": "Administrator"
+                },
+                {
+                    "emailAddress": "",
+                    "password": "${administrativeAccounts_items_martina_password}",
+                    "phoneNumber": "",
+                    "roles": [
+                        "ADMINISTRATOR",
+                        "CRYPTO_ADMINISTRATOR",
+                        "EXPRESSION_ADMINISTRATOR",
+                        "USER_ADMINISTRATOR"
+                    ],
+                    "auditor": false,
+                    "description": "",
+                    "active": true,
+                    "department": "",
+                    "username": "martina"
+                }
+            ],
             "resourceType": "/administrativeAccounts"
         },
         {
