@@ -1,3 +1,27 @@
+dn: uid=administrator,ou=People,${USER_BASE_DN}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: ubidPersonAux
+objectClass: pf-connected-identities
+sn: User
+cn: administrator
+givenName: Admin
+c: au
+st: Victoria
+l: Melbourne
+postalCode: 3000
+streetAddress: 101 Collins St
+description: 1985-03-29
+mail: administrator@fakemail.com
+mobile: 0400333222
+uid: administrator
+userPassword: password
+pf-connected-identity: auth-source=pf-local-identity:user-id=administrator
+entryuuid: 380a457a-1a7e-4b4a-a2fc-1412ae425ba9
+modifyTimestamp: 20200626044309.209Z
+
 dn: uid=CRN0,ou=People,${USER_BASE_DN}
 objectClass: top
 objectClass: person
