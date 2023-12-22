@@ -5,6 +5,20 @@
   "config-aliases":[
     {
       "config-names":[
+        "notificationPublishers_items_smtp_configuration_fields_Password_value"
+      ],
+      "replace-name": "SMTP_PASSWORD",
+      "is-apply-envfile": false
+    },
+    {
+      "config-names":[
+        "administrativeAccounts_items_martina_password"
+      ],
+      "replace-name": "MARTINA_PASSWORD",
+      "is-apply-envfile": false
+    },
+    {
+      "config-names":[
         "administrativeAccounts_items_Administrator_password"
       ],
       "replace-name": "PING_IDENTITY_PASSWORD",
@@ -32,12 +46,12 @@
       "apply-env-file": false
     },
     {
-      "search": "mtls-bank-01.pingapac.com",
+      "search": "mtls-wuna-idp.pingapac.com",
       "replace": "${MTLS_IDP_HOSTNAME}",
       "apply-env-file": false
     },
     {
-      "search": "bank-01.pingapac.com",
+      "search": "wuna-idp.pingapac.com",
       "replace": "${IDP_HOSTNAME}",
       "apply-env-file": false
     },
@@ -65,24 +79,6 @@
       "replace-name": "credential",
       "unique-identifiers": [
           "id"
-      ]
-    },
-    {
-      "parameter-name": "value",
-      "unique-identifiers": [
-          "name=Data Recipient Issuer"
-      ]
-    },
-    {
-      "parameter-name": "value",
-      "unique-identifiers": [
-          "name=CDR Register Base URL"
-      ]
-    },
-    {
-      "parameter-name": "value",
-      "unique-identifiers": [
-          "name=JWKS URL"
       ]
     },
     {

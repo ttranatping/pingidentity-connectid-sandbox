@@ -3,7 +3,21 @@
 	"roles","scopes"
   ],
   "config-aliases":[
-      	  {
+    {
+      "config-names":[
+        "notificationPublishers_items_smtp_configuration_fields_Password_value"
+      ],
+      "replace-name": "SMTP_PASSWORD",
+      "is-apply-envfile": false
+    },
+    {
+      "config-names":[
+        "administrativeAccounts_items_martina_password"
+      ],
+      "replace-name": "MARTINA_PASSWORD",
+      "is-apply-envfile": false
+    },
+    {
       "config-names":[
         "administrativeAccounts_items_Administrator_password"
       ],

@@ -524,7 +524,79 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{}],
+            "items": [{
+                "configuration": {
+                    "tables": [],
+                    "fields": [
+                        {
+                            "name": "From Address",
+                            "value": "noreply@${BASE_HOSTNAME}"
+                        },
+                        {
+                            "name": "Sender Name",
+                            "value": "Ping APAC"
+                        },
+                        {
+                            "name": "Email Server",
+                            "value": "smtp.fastmail.com"
+                        },
+                        {
+                            "name": "SMTP Port",
+                            "value": "465"
+                        },
+                        {
+                            "name": "Encryption Method",
+                            "value": "SSL"
+                        },
+                        {
+                            "name": "SMTPS Port",
+                            "value": "465"
+                        },
+                        {
+                            "name": "Verify Hostname",
+                            "value": "true"
+                        },
+                        {
+                            "name": "UTF-8 Message Header Support",
+                            "value": "true"
+                        },
+                        {
+                            "name": "Username",
+                            "value": "tam@fastmail.com.au"
+                        },
+                        {
+                            "name": "Password",
+                            "value": "${SMTP_PASSWORD}"
+                        },
+                        {
+                            "name": "Test Address",
+                            "value": "ttran@pingidentity.com"
+                        },
+                        {
+                            "name": "Connection Timeout",
+                            "value": "30"
+                        },
+                        {
+                            "name": "Enable SMTP Debugging Messages",
+                            "value": "true"
+                        }
+                    ]
+                },
+                "name": "smtp",
+                "id": "smtp",
+                "pluginDescriptorRef": {
+                    "location": "https://localhost:9999/pf-admin-api/v1/notificationPublishers/descriptors/com.pingidentity.email.SmtpNotificationPlugin",
+                    "id": "com.pingidentity.email.SmtpNotificationPlugin"
+                }
+            }],
+            "resourceType": "/notificationPublishers"
+        },
+        {
+            "operationType": "SAVE",
+            "items": [{"defaultNotificationPublisherRef": {
+                "location": "https://localhost:9999/pf-admin-api/v1/notificationPublishers/smtp",
+                "id": "smtp"
+            }}],
             "resourceType": "/notificationPublishers/settings"
         },
         {
@@ -536,10 +608,10 @@
             "operationType": "SAVE",
             "items": [{
                 "federationInfo": {
-                    "saml2EntityId": "https://wuna-idp.${BASE_HOSTNAME}",
+                    "saml2EntityId": "https://${IDP_HOSTNAME}",
                     "saml1xIssuerId": "",
                     "wsfedRealm": "",
-                    "baseUrl": "https://wuna-idp.${BASE_HOSTNAME}",
+                    "baseUrl": "https://${IDP_HOSTNAME}",
                     "saml1xSourceId": ""
                 },
                 "contactInfo": {},
@@ -685,7 +757,7 @@
                 },
                 {
                     "emailAddress": "",
-                    "password": "${administrativeAccounts_items_martina_password}",
+                    "password": "${MARTINA_PASSWORD}",
                     "phoneNumber": "",
                     "roles": [
                         "ADMINISTRATOR",
@@ -714,8 +786,8 @@
                 "pingfederate",
                 "host.docker.internal",
                 "sso.${BASE_HOSTNAME}",
-                "wuna-idp.${BASE_HOSTNAME}",
-                "mtls-wuna-idp.${BASE_HOSTNAME}"
+                "${IDP_HOSTNAME}",
+                "${MTLS_IDP_HOSTNAME}"
             ]}],
             "resourceType": "/virtualHostNames"
         },
@@ -2054,7 +2126,7 @@
                             },
                             {
                                 "name": "Password Reset Type",
-                                "value": "NONE"
+                                "value": "OTP"
                             },
                             {
                                 "name": "Password Reset Policy Contract",
@@ -2074,7 +2146,7 @@
                             },
                             {
                                 "name": "Notification Publisher",
-                                "value": ""
+                                "value": "smtp"
                             },
                             {
                                 "name": "Enable Username Recovery",
@@ -2082,7 +2154,7 @@
                             },
                             {
                                 "name": "Login Template",
-                                "value": "html.form.login.template.html"
+                                "value": "html.form.wuna.login.html"
                             },
                             {
                                 "name": "Logout Path",
@@ -2620,7 +2692,7 @@
                     "issuanceCriteria": {
                         "expressionCriteria": [
                             {
-                                "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://wuna-idp.${BASE_HOSTNAME}\", \"org123\", null)",
+                                "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://${IDP_HOSTNAME}\", \"org123\", null)",
                                 "errorResult": "ERROR_EVENT_LOGGING"
                             },
                             {
