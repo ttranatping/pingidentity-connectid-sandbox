@@ -1,0 +1,229 @@
+#set( $messageKeyPrefix = "html.form.login.template." )
+<!DOCTYPE html>
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+	<title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+	
+    <style>
+		body {
+			margin: 0;
+			display: grid;
+			place-items: center;
+			align-content: center;
+			gap: 60px;
+			min-height: 100vh;
+			font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+		}
+
+		form {
+			display: grid;
+			gap: 32px;
+			box-shadow: 0 2px 6px 0 rgb(32 33 36 / 28%);
+			border-radius: 4px;
+			padding: 16px;
+			max-width: 582px;
+			width: 80%;
+		}
+
+		.form-control {
+			display: grid;
+			gap: 8px;
+		}
+
+		.form-control label {
+			color: #333;
+			font-size: 14px;
+			font-weight: 500;
+			text-transform: capitalize;
+		}
+
+		.form-control input {
+			display: block;
+			border: 1px solid #2E5BFF14;
+			padding: 0.8125rem 1rem;
+			position: relative;
+			font-size: 16px;
+			transition: border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+			font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+			border-radius: 4px;
+			background-color: #E0E7FF33;
+		}
+
+		#signOnButton {
+			display: block;
+			background: #2E5BFF;
+			padding: 11px 16px;
+			font-size: 0.675rem;
+			min-width: 64px;
+			box-sizing: border-box;
+			font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+			font-weight: 500;
+			line-height: 1.75;
+			border-radius: 4px;
+			letter-spacing: 0.02857em;
+			text-transform: capitalize;
+			color: #fff;
+			text-align: center;
+		}
+
+		#signOnButton:focus,
+		#signOnButton:hover,
+		#signOnButton:active {
+			box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),
+			0px 8px 10px 1px rgba(0,0,0,0.14),
+			0px 3px 14px 2px rgba(0,0,0,0.12);
+		}
+
+		.actions {
+			display: grid;
+			gap: 16px;
+		}
+
+		.link {
+			text-decoration: none;
+			color: #2E5BFF;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="assets/css/wuna-ping.css"/>
+    <script src='assets/scripts/captcha/captcha-utils.js'></script>
+    <script src='assets/scripts/captcha/captcha-script-loader.js' defer></script>
+    <script src='assets/scripts/pf-general.js'></script>
+</head>
+
+<body onload="setFocus();">
+	<!-- CAPTCHA settings-->
+	<div id="captchaEnabled" hidden>$captchaEnabled</div>
+	<div id="captchaScriptName" hidden>"$captchaScriptName"</div>
+	<div id="captchaAttributes" hidden>$captchaAttributes</div>
+	<div id="captchaCSPNonce" hidden>"$CSPNonce"</div>
+
+<img src="assets/images/holdaccess-wuna-logo.png" alt="Logo" width="300">
+
+<form method="POST" action="$url" autocomplete="off">
+	<input type="hidden" name="$ok" value="" />
+	<input type="hidden" name="$cancel" value="" />
+	<input type="hidden" name="$passwordReset" value=""/>
+	<input type="hidden" name="$adapterIdField" id="$adapterIdField" value="$adapterId" />
+
+	<div class="ping-messages">
+		#if($authnMessageKey)
+		<div class="ping-error">$templateMessages.getMessage($authnMessageKey)</div>
+		#end
+		#if($errorMessageKey)
+		<div class="ping-error">$templateMessages.getMessage($messageKeyPrefix, $errorMessageKey)</div>
+		#end
+
+		## Uncomment below to display any additional server error:
+		#*
+		#if($serverError)
+		<div class="ping-error">$serverError</div>
+		#end
+		*#
+	</div>
+
+	<div class="form-control">
+		<div class="ping-input-container">
+			<label for="username">Email</label>
+			<input id="username" type="text" name="$name" value="$username" autocorrect="off" autocapitalize="off"
+				onkeypress="return postOnReturn(event)">
+			<div class="place-bottom type-alert tooltip-text" id="username-text">
+				<div class="icon">!</div>
+				$templateMessages.getMessage($messageKeyPrefix, "missingField")
+			</div>
+			<!--#* Username value is explicitly HTML encoded in HtmlFormIdpAuthnAdapter *#-->
+		</div>
+	</div>
+	<div class="form-control">
+		<div class="ping-input-container">
+			<label for="password">Password</label>
+			<input id="password" type="password" name="$pass" onkeypress="return postOnReturn(event)">
+
+			<div class="place-bottom type-alert tooltip-text" id="password-text">
+				<div class="icon">!</div>
+				$templateMessages.getMessage($messageKeyPrefix, "missingField")
+			</div>
+		</div>
+	</div>
+
+	<div class="actions">
+		<span id="signOnButtonSpan">
+			<a onclick="postOk();" id="signOnButton" title="Sign on">
+				Sign on
+			</a>
+		</span>
+<!--
+		<a onclick="postCancel();" id="cancelButton" title="Cancel" class="link">
+			Cancel
+		</a>
+		<div>
+			<input id="myDevice" type="checkbox" name="myDevice" checked="">
+			This is my computer
+		</div>
+-->
+
+		<a onclick="postForgotPassword();" class="link forgot-password">Forgot password</a>
+	</div>
+</form>
+
+
+<script type="text/javascript">
+	var formSubmitted = false;
+
+    function postForgotPassword() {
+		document.forms[0]['$passwordReset'].value = 'clicked';
+		document.forms[0].submit();
+	}
+
+    function postOk() {
+        if (formSubmitted)
+            return true;
+
+        formSubmitted = true;
+        var hasError = false;
+        CaptchaManager.execute(function() {
+            submitForm();
+        });
+    }
+
+    function submitForm() {
+        var signOnButtonSpan = document.getElementById('signOnButtonSpan');
+        signOnButtonSpan.classList.add('content-columns', 'disabled');
+        signOnButtonSpan.style = "pointer-events: none;";
+
+        var signOnButton = document.getElementById('signOnButton');
+        signOnButton.innerHTML = '$templateMessages.getMessage($messageKeyPrefix, "signingOn")';
+
+        document.forms[0]['$ok'].value = 'clicked';
+        document.forms[0].submit();
+        CaptchaManager.cleanup();
+    }
+
+	function postCancel() {
+		document.forms[0]['$cancel'].value = 'clicked';
+		document.forms[0].submit();
+	}
+
+	function postOnReturn(e) {
+		var keycode;
+		if (window.event)
+			keycode = window.event.keyCode;
+		else if (e)
+			keycode = e.which;
+		else
+			return true;
+
+		if (keycode == 13) {
+			postOk();
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function setFocus() {
+		document.getElementById('username').focus();
+	}
+</script>
+</body>
+</html>
