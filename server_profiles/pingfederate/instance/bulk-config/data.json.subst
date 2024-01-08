@@ -743,7 +743,9 @@
             "operationType": "SAVE",
             "items": [
                 {
+                    "emailAddress": "martina+pfadmin@digitalpurpose.com.au",
                     "password": "${PING_IDENTITY_PASSWORD}",
+                    "phoneNumber": "",
                     "roles": [
                         "ADMINISTRATOR",
                         "CRYPTO_ADMINISTRATOR",
@@ -753,10 +755,11 @@
                     "auditor": false,
                     "description": "Initial administrator user.",
                     "active": true,
+                    "department": "",
                     "username": "Administrator"
                 },
                 {
-                    "emailAddress": "",
+                    "emailAddress": "martina+pfadmin2@digitalpurpose.com.au",
                     "password": "${MARTINA_PASSWORD}",
                     "phoneNumber": "",
                     "roles": [
@@ -848,6 +851,7 @@
                     "extendedAttributes": [
                         {"name": "claims_idtoken"},
                         {"name": "requested_attributes_userinfo"},
+                        {"name": "indigenous"},
                         {"name": "requested_attributes"},
                         {"name": "claims_userinfo"},
                         {"name": "claims_parameter_b64"},
@@ -1829,6 +1833,10 @@
                                 "source": {"type": "ADAPTER"},
                                 "value": "subject"
                             },
+                            "indigenous": {
+                                "source": {"type": "ADAPTER"},
+                                "value": "indigenous"
+                            },
                             "requested_attributes": {
                                 "source": {"type": "ADAPTER"},
                                 "value": "requested_attributes"
@@ -1941,6 +1949,11 @@
                             {
                                 "masked": false,
                                 "name": "requested_attributes_userinfo",
+                                "pseudonym": false
+                            },
+                            {
+                                "masked": false,
+                                "name": "indigenous",
                                 "pseudonym": false
                             },
                             {
@@ -2437,7 +2450,8 @@
                         {"name": "CLAIMS_PARAMETER_B64"},
                         {"name": "CLAIMS_INDIGENOUS_GROUP"},
                         {"name": "CLAIMS_REQUESTED_ATTRIBUTES"},
-                        {"name": "CLAIMS_REQUESTED_ATTRIBUTES_USERINFO"}
+                        {"name": "CLAIMS_REQUESTED_ATTRIBUTES_USERINFO"},
+                        {"name": "CLAIMS_INDIGENOUS"}
                     ]
                 },
                 "scopeGroups": [],
@@ -2553,6 +2567,7 @@
                             "value": "subject"
                         },
                         "CLAIMS_PARAMETER_B64": {"source": {"type": "NO_MAPPING"}},
+                        "CLAIMS_INDIGENOUS": {"source": {"type": "NO_MAPPING"}},
                         "CLAIMS_REQUESTED_ATTRIBUTES": {"source": {"type": "NO_MAPPING"}},
                         "CLAIMS_REQUESTED_ATTRIBUTES_USERINFO": {"source": {"type": "NO_MAPPING"}}
                     },
@@ -2585,6 +2600,10 @@
                         "USER_KEY": {
                             "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
                             "value": "subject"
+                        },
+                        "CLAIMS_INDIGENOUS": {
+                            "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
+                            "value": "indigenous"
                         },
                         "CLAIMS_PARAMETER_B64": {
                             "source": {"type": "AUTHENTICATION_POLICY_CONTRACT"},
@@ -2622,6 +2641,7 @@
                         "value": "username"
                     },
                     "CLAIMS_PARAMETER_B64": {"source": {"type": "NO_MAPPING"}},
+                    "CLAIMS_INDIGENOUS": {"source": {"type": "NO_MAPPING"}},
                     "CLAIMS_REQUESTED_ATTRIBUTES": {"source": {"type": "NO_MAPPING"}},
                     "CLAIMS_REQUESTED_ATTRIBUTES_USERINFO": {"source": {"type": "NO_MAPPING"}}
                 },
@@ -2638,122 +2658,213 @@
         },
         {
             "operationType": "SAVE",
-            "items": [{
-                "attributeMapping": {
-                    "attributeContractFulfillment": {
-                        "sub": {
-                            "source": {"type": "TOKEN"},
-                            "value": "sub"
+            "items": [
+                {
+                    "attributeMapping": {
+                        "attributeContractFulfillment": {
+                            "sub": {
+                                "source": {"type": "TOKEN"},
+                                "value": "sub"
+                            },
+                            "verified_claims": {
+                                "source": {"type": "EXPRESSION"},
+                                "value": "#topLevel = new org.json.simple.JSONObject(),\n\n#claimsObject = new org.json.simple.JSONObject(),\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(\"indigenous_group\")?#claimsObject.put(\"indigenous_group\", #this.get(\"persistentgrant.CLAIMS_INDIGENOUS_GROUP\")):null,\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(\"indigenous\")?#claimsObject.put(\"indigenous\", #this.get(\"persistentgrant.CLAIMS_INDIGENOUS\")):null,\n\n#topLevel.put(\"claims\", #claimsObject),\n\n#jsonParser = new org.json.simple.parser.JSONParser(),\n#topLevel.put(\"verification\", #jsonParser.parse(\"{\\\"trust_framework\\\": \\\"au_connectid\\\"}\")),\n\n#topLevel"
+                            },
+                            "txn": {
+                                "source": {"type": "EXPRESSION"},
+                                "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"txn\", \"txn\", \"txn\")"
+                            },
+                            "given_name": {
+                                "source": {"type": "EXPRESSION"},
+                                "value": "#requestedAttribute = \"given_name\",\n#dsAttribute = \"ds.ldap.givenName\",\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(#requestedAttribute)?#this.get(#dsAttribute):null"
+                            },
+                            "family_name": {
+                                "source": {"type": "EXPRESSION"},
+                                "value": "#requestedAttribute = \"family_name\",\n#dsAttribute = \"ds.ldap.sn\",\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(#requestedAttribute)?#this.get(#dsAttribute):null"
+                            }
                         },
-                        "verified_claims": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "#topLevel = new org.json.simple.JSONObject(),\n\n#claimsObject = new org.json.simple.JSONObject(),\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(\"indigenous_group\")?#claimsObject.put(\"indigenous_group\", #this.get(\"persistentgrant.CLAIMS_INDIGENOUS_GROUP\")):null,\n\n#topLevel.put(\"claims\", #claimsObject),\n\n#jsonParser = new org.json.simple.parser.JSONParser(),\n#topLevel.put(\"verification\", #jsonParser.parse(\"{\\\"trust_framework\\\": \\\"au_connectid\\\"}\")),\n\n#topLevel"
-                        },
-                        "txn": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@getValues(#this, \"txn\", \"txn\", \"txn\")"
-                        },
-                        "given_name": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "#requestedAttribute = \"given_name\",\n#dsAttribute = \"ds.ldap.givenName\",\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(#requestedAttribute)?#this.get(#dsAttribute):null"
-                        },
-                        "family_name": {
-                            "source": {"type": "EXPRESSION"},
-                            "value": "#requestedAttribute = \"family_name\",\n#dsAttribute = \"ds.ldap.sn\",\n\n#this.get(\"persistentgrant.CLAIMS_REQUESTED_ATTRIBUTES\").getValuesAsCollection().contains(#requestedAttribute)?#this.get(#dsAttribute):null"
+                        "attributeSources": [{
+                            "memberOfNestedGroup": false,
+                            "binaryAttributeSettings": {},
+                            "searchScope": "SUBTREE",
+                            "dataStoreRef": {
+                                "location": "https://localhost:9999/pf-admin-api/v1/dataStores/LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                                "id": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C"
+                            },
+                            "description": "ldap",
+                            "id": "ldap",
+                            "searchAttributes": [
+                                "Subject DN",
+                                "c",
+                                "description",
+                                "givenName",
+                                "l",
+                                "mail",
+                                "mobile",
+                                "postalCode",
+                                "sn",
+                                "st",
+                                "street"
+                            ],
+                            "type": "LDAP",
+                            "baseDn": "ou=people,${USER_BASE_DN}",
+                            "searchFilter": "uid=${sub}"
+                        }],
+                        "issuanceCriteria": {
+                            "expressionCriteria": [
+                                {
+                                    "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://${IDP_HOSTNAME}\", \"org123\", null)",
+                                    "errorResult": "ERROR_EVENT_LOGGING"
+                                },
+                                {
+                                    "expression": "#requestObject = #this.get(\"context.HttpRequest\").getObjectValue(),\n\n#isUserInfo = (#requestObject.getRequestURI().endsWith(\"userinfo.openid\")),\n#certs = #requestObject.getAttribute(\"javax.servlet.request.X509Certificate\"),\n#certThumbprint = (#certs == null) ? null : \n@java.util.Base64@getUrlEncoder().withoutPadding().encodeToString(\n@java.security.MessageDigest@getInstance(\"SHA-256\").digest(#certs[0].getEncoded())),\n\n#accessTokenCNF = #this.get(\"cnf\"),\n\n#accessTokenCertThumbprint = (\n#accessTokenCNF != null)?#this.get(\"cnf\").getObjectValue().get(\"x5t#S256\"):null,\n\n(!#isUserInfo || #accessTokenCNF == null || (#certThumbprint != null && !#certThumbprint.isEmpty() && #certThumbprint.equals(#accessTokenCertThumbprint)))",
+                                    "errorResult": "INVALID_CERTIFICATE"
+                                }
+                            ],
+                            "conditionalCriteria": []
                         }
                     },
-                    "attributeSources": [{
-                        "memberOfNestedGroup": false,
-                        "binaryAttributeSettings": {},
-                        "searchScope": "SUBTREE",
-                        "dataStoreRef": {
-                            "location": "https://localhost:9999/pf-admin-api/v1/dataStores/LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
-                            "id": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C"
-                        },
-                        "description": "ldap",
-                        "id": "ldap",
-                        "searchAttributes": [
-                            "Subject DN",
-                            "c",
-                            "description",
-                            "givenName",
-                            "l",
-                            "mail",
-                            "mobile",
-                            "postalCode",
-                            "sn",
-                            "st",
-                            "street"
-                        ],
-                        "type": "LDAP",
-                        "baseDn": "ou=people,${USER_BASE_DN}",
-                        "searchFilter": "uid=${sub}"
-                    }],
-                    "issuanceCriteria": {
-                        "expressionCriteria": [
+                    "name": "connectIDOIDCPolicy",
+                    "scopeAttributeMappings": {"openid": {"values": [
+                        "family_name",
+                        "given_name",
+                        "txn",
+                        "verified_claims"
+                    ]}},
+                    "returnIdTokenOnRefreshGrant": false,
+                    "id": "connectIDOIDCPolicy",
+                    "reissueIdTokenInHybridFlow": false,
+                    "includeSriInIdToken": false,
+                    "includeSHashInIdToken": false,
+                    "includeUserInfoInIdToken": false,
+                    "idTokenLifetime": 5,
+                    "attributeContract": {
+                        "coreAttributes": [{
+                            "name": "sub",
+                            "multiValued": false
+                        }],
+                        "extendedAttributes": [
                             {
-                                "expression": "@com.pingidentity.ps.connectid.pf.utils.OGNLHelper@logEvent(#this, \"IdentityProvidedEvent\", \"https://${IDP_HOSTNAME}\", \"org123\", null)",
-                                "errorResult": "ERROR_EVENT_LOGGING"
+                                "includeInUserInfo": true,
+                                "name": "verified_claims",
+                                "includeInIdToken": true,
+                                "multiValued": false
                             },
                             {
-                                "expression": "#requestObject = #this.get(\"context.HttpRequest\").getObjectValue(),\n\n#isUserInfo = (#requestObject.getRequestURI().endsWith(\"userinfo.openid\")),\n#certs = #requestObject.getAttribute(\"javax.servlet.request.X509Certificate\"),\n#certThumbprint = (#certs == null) ? null : \n@java.util.Base64@getUrlEncoder().withoutPadding().encodeToString(\n@java.security.MessageDigest@getInstance(\"SHA-256\").digest(#certs[0].getEncoded())),\n\n#accessTokenCNF = #this.get(\"cnf\"),\n\n#accessTokenCertThumbprint = (\n#accessTokenCNF != null)?#this.get(\"cnf\").getObjectValue().get(\"x5t#S256\"):null,\n\n(!#isUserInfo || #accessTokenCNF == null || (#certThumbprint != null && !#certThumbprint.isEmpty() && #certThumbprint.equals(#accessTokenCertThumbprint)))",
-                                "errorResult": "INVALID_CERTIFICATE"
+                                "includeInUserInfo": true,
+                                "name": "txn",
+                                "includeInIdToken": true,
+                                "multiValued": false
+                            },
+                            {
+                                "includeInUserInfo": true,
+                                "name": "given_name",
+                                "includeInIdToken": true,
+                                "multiValued": false
+                            },
+                            {
+                                "includeInUserInfo": true,
+                                "name": "family_name",
+                                "includeInIdToken": true,
+                                "multiValued": false
                             }
-                        ],
-                        "conditionalCriteria": []
+                        ]
+                    },
+                    "accessTokenManagerRef": {
+                        "location": "https://localhost:9999/pf-admin-api/v1/oauth/accessTokenManagers/connectIDATM",
+                        "id": "connectIDATM"
                     }
                 },
-                "name": "connectIDOIDCPolicy",
-                "scopeAttributeMappings": {"openid": {"values": [
-                    "family_name",
-                    "given_name",
-                    "txn",
-                    "verified_claims"
-                ]}},
-                "returnIdTokenOnRefreshGrant": false,
-                "id": "connectIDOIDCPolicy",
-                "reissueIdTokenInHybridFlow": false,
-                "includeSriInIdToken": false,
-                "includeSHashInIdToken": false,
-                "includeUserInfoInIdToken": false,
-                "idTokenLifetime": 5,
-                "attributeContract": {
-                    "coreAttributes": [{
-                        "name": "sub",
-                        "multiValued": false
-                    }],
-                    "extendedAttributes": [
-                        {
-                            "includeInUserInfo": true,
-                            "name": "verified_claims",
-                            "includeInIdToken": true,
-                            "multiValued": false
+                {
+                    "attributeMapping": {
+                        "attributeContractFulfillment": {
+                            "sub": {
+                                "source": {"type": "TOKEN"},
+                                "value": "sub"
+                            },
+                            "given_name": {
+                                "source": {
+                                    "id": "pdldap",
+                                    "type": "LDAP_DATA_STORE"
+                                },
+                                "value": "givenName"
+                            },
+                            "family_name": {
+                                "source": {
+                                    "id": "pdldap",
+                                    "type": "LDAP_DATA_STORE"
+                                },
+                                "value": "sn"
+                            },
+                            "email": {
+                                "source": {
+                                    "id": "pdldap",
+                                    "type": "LDAP_DATA_STORE"
+                                },
+                                "value": "mail"
+                            }
                         },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "txn",
-                            "includeInIdToken": true,
+                        "attributeSources": [{
+                            "memberOfNestedGroup": false,
+                            "binaryAttributeSettings": {},
+                            "searchScope": "SUBTREE",
+                            "dataStoreRef": {
+                                "location": "https://localhost:9999/pf-admin-api/v1/dataStores/LDAP-C29DCC21274C10A483A76237675C3A22715D638C",
+                                "id": "LDAP-C29DCC21274C10A483A76237675C3A22715D638C"
+                            },
+                            "description": "pdldap",
+                            "id": "pdldap",
+                            "searchAttributes": [
+                                "Subject DN",
+                                "givenName",
+                                "mail",
+                                "sn"
+                            ],
+                            "type": "LDAP",
+                            "baseDn": "ou=admins,o=platformconfig",
+                            "searchFilter": "uid=${sub}"
+                        }],
+                        "issuanceCriteria": {"conditionalCriteria": []}
+                    },
+                    "name": "wuna-identity-poc",
+                    "scopeAttributeMappings": {"openid": {"values": [
+                        "email",
+                        "family_name",
+                        "given_name"
+                    ]}},
+                    "returnIdTokenOnRefreshGrant": false,
+                    "id": "wuna-admin-ocid-policy",
+                    "reissueIdTokenInHybridFlow": false,
+                    "includeSriInIdToken": false,
+                    "includeSHashInIdToken": false,
+                    "includeUserInfoInIdToken": false,
+                    "idTokenLifetime": 5,
+                    "attributeContract": {
+                        "coreAttributes": [{
+                            "name": "sub",
                             "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "given_name",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        },
-                        {
-                            "includeInUserInfo": true,
-                            "name": "family_name",
-                            "includeInIdToken": true,
-                            "multiValued": false
-                        }
-                    ]
-                },
-                "accessTokenManagerRef": {
-                    "location": "https://localhost:9999/pf-admin-api/v1/oauth/accessTokenManagers/connectIDATM",
-                    "id": "connectIDATM"
+                        }],
+                        "extendedAttributes": [
+                            {
+                                "name": "given_name",
+                                "multiValued": false
+                            },
+                            {
+                                "name": "family_name",
+                                "multiValued": false
+                            },
+                            {
+                                "name": "email",
+                                "multiValued": false
+                            }
+                        ]
+                    },
+                    "accessTokenManagerRef": {
+                        "location": "https://localhost:9999/pf-admin-api/v1/oauth/accessTokenManagers/adminJWTATM",
+                        "id": "adminJWTATM"
+                    }
                 }
-            }],
+            ],
             "resourceType": "/oauth/openIdConnect/policies"
         },
         {
@@ -2958,6 +3069,13 @@
                                                                     "type": "ADAPTER"
                                                                 },
                                                                 "value": "requested_attributes_userinfo"
+                                                            },
+                                                            "indigenous": {
+                                                                "source": {
+                                                                    "id": "consentAgentlessAdapter",
+                                                                    "type": "ADAPTER"
+                                                                },
+                                                                "value": "indigenous"
                                                             },
                                                             "subject": {
                                                                 "source": {
