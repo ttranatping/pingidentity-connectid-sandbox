@@ -2846,15 +2846,21 @@
                         }],
                         "extendedAttributes": [
                             {
+                                "includeInUserInfo": true,
                                 "name": "given_name",
+                                "includeInIdToken": true,
                                 "multiValued": false
                             },
                             {
+                                "includeInUserInfo": true,
                                 "name": "family_name",
+                                "includeInIdToken": true,
                                 "multiValued": false
                             },
                             {
+                                "includeInUserInfo": true,
                                 "name": "email",
+                                "includeInIdToken": true,
                                 "multiValued": false
                             }
                         ]
