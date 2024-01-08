@@ -193,10 +193,13 @@ pf-oauth-client-enforce-replay-prevention: FALSE
 pf-oauth-client-grant-type: authorization_code
 pf-oauth-client-hashed-secret: hFgEuUX-CmbB4jTl_4I8OgYWGI8TbH0hTHAHZsLK5Gk.U
  ewKd67m.2
-pf-oauth-client-last-modified: 1703132918048
+pf-oauth-client-last-modified: 1704253641331
 pf-oauth-client-name: wuna-identity-poc
 pf-oauth-client-persistent-grant-exp-type: SERVER_DEFAULT
+pf-oauth-client-redirect-uri: http://localhost:3000/auth
+pf-oauth-client-redirect-uri: https://oauth.pstmn.io/v1/browser-callback
 pf-oauth-client-redirect-uri: https://oauth.pstmn.io/v1/callback
+pf-oauth-client-redirect-uri: https://wuna-consent.pingapac.com:7879/
 pf-oauth-client-require-signed-requests: FALSE
 pf-oauth-client-restrict-scopes: FALSE
 pf-oauth-client-supplemental-info: 13:CREATION_TIME:1703042447845
@@ -210,7 +213,8 @@ pf-oauth-client-supplemental-info: 22:ALLOW_EXCLUSIVE_SCOPES:true
 pf-oauth-client-supplemental-info: 23:RESTRICT_RESPONSE_TYPES:false
 pf-oauth-client-supplemental-info: 23:RESTRICT_TO_DEFAULT_ATM:true
 pf-oauth-client-supplemental-info: 23:USER_AUTHZ_URL_OVERRIDE:null
-pf-oauth-client-supplemental-info: 24:vnd.ping.policy_group_id:null
+pf-oauth-client-supplemental-info: 24:vnd.ping.policy_group_id:wuna-admin-oc
+ id-policy
 pf-oauth-client-supplemental-info: 26:AUTHORIZATION_DETAIL_TYPES:null
 pf-oauth-client-supplemental-info: 26:PING_ACCESS_LOGOUT_CAPABLE:false
 pf-oauth-client-supplemental-info: 27:PERSISTENT_GRANT_REUSE_TYPE:SERVER_DEF
