@@ -1854,7 +1854,7 @@
                         "fields": [
                             {
                                 "name": "Authentication Endpoint",
-                                "value": "https://wuna-consent.${BASE_HOSTNAME}:7879/init"
+                                "value": "https://wuna-identity.digitalpurpose.com.au/init"
                             },
                             {
                                 "name": "User Name",
